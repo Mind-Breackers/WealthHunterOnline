@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">App3</string>
+    <string name="Ok" translatable="false">OK</string>
+    <string name="hello">Hello!</string>
+    <string name="sign_in" translatable="false">Sign In</string>
+    <string name="sign_up" translatable="false">Sign Up</string>
+    <string name="avatar" translatable="false">Avatar</string>
+    <string name="login" translatable="false">Login</string>
+    <string name="paswword" translatable="false">Password</string>
+    <string name="name1" translatable="false">Имя</string>
+    <string name="name2" translatable="false">Фамилия</string>
+    <string name="name3" translatable="false">Отчество</string>
+    <string name="done" translatable="false">Готово</string>
+    <string name="Hint_1" translatable="false">Приветствуем вас на обучении!Сейчас мы расскажем вам основные механики игры.</string>
+    <string name="Hint_2" translatable="false">Сначала выберите одну фигуру из пула котрую хотите разрушить.</string>
+    <string name="Hint_3" translatable="false">Выберите фигуру ,которая поможет вам в заполнении поля.</string>
+    <string name="Hint_4" translatable="false">Попробуйте заполнить ваше первое поле.</string>
+
+</resources>

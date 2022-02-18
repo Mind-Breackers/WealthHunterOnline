@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <rotate
+        android:fromDegrees="180.0"
+        android:toDegrees="360.0"
+        android:duration="700" />
+    <alpha
+        android:interpolator="@android:anim/linear_interpolator"
+        android:fromAlpha="0"
+        android:toAlpha="1.0"
+        android:duration="700" />
+</set>
