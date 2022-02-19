@@ -1,5 +1,6 @@
 package com.example.app3.SigInUp
 
+// some string for test commit from Sergey [delete this]
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
