@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">App3</string>
+    <string name="app_name">crash</string>
     <string name="Ok" translatable="false">OK</string>
     <string name="hello">Hello!</string>
     <string name="sign_in" translatable="false">Sign In</string>
@@ -15,5 +15,7 @@
     <string name="Hint_2" translatable="false">Сначала выберите одну фигуру из пула котрую хотите разрушить.</string>
     <string name="Hint_3" translatable="false">Выберите фигуру ,которая поможет вам в заполнении поля.</string>
     <string name="Hint_4" translatable="false">Попробуйте заполнить ваше первое поле.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+
 
 </resources>

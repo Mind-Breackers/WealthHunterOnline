@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.app3">
+    package="com.example.crash">
 
     <application
         android:allowBackup="true"
@@ -8,10 +8,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.App3">
-        <activity android:name=".games.Games" ></activity>
+        android:theme="@style/Theme.crash">
+        <activity android:name=".games.Game_Play.Games" ></activity>
         <activity android:name=".SigInUp.SignInUp" />
-        <activity android:name=".SigInUp.MainActivity" >
+        <activity android:name=".SigInUp.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

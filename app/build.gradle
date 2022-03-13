@@ -4,16 +4,13 @@ plugins {
 }
 
 android {
-
-
-
-    compileSdkVersion 30
+    compileSdkVersion 31
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.example.app3"
+        applicationId "com.example.crash"
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode 1
         versionName "1.0"
 
@@ -33,13 +30,13 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
     buildFeatures{
         viewBinding true
     }
 }
 
 dependencies {
+
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.0.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
