@@ -1,14 +1,10 @@
 package com.example.app3.games
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.DisplayMetrics
-import android.util.Log
 import android.view.MotionEvent
 import android.widget.RelativeLayout
-import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.app3.databinding.GamesBinding
@@ -26,7 +22,6 @@ class Games : AppCompatActivity() {
     var downY = 0
     private var size=0
 
-
     @RequiresApi(Build.VERSION_CODES.R)
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,17 +31,15 @@ class Games : AppCompatActivity() {
 
         val displaymetrics = resources.displayMetrics
 
-
-
         root = bindingclass.root
-        rootblock=bindingclass.rootblock
-        var centerY = displaymetrics.heightPixels / 2
-        var centerX = displaymetrics.widthPixels / 2
+        rootblock = bindingclass.rootblock
+        val centerY = displaymetrics.heightPixels / 2
+        val centerX = displaymetrics.widthPixels / 2
 
-        size=intent.getIntExtra("difficult",0)*10
+        size = intent.getIntExtra("difficult",0)*10
 
-        val GamesField=Field(rootblock,size, centerX-25, centerY-25)
-        Pool(root, blocks, 0, 0, 830)
+        val blocksPool = Pool(root, blocks, 0, 0, displaymetrics.widthPixels)
+        val gamesField = Field(rootblock, size, centerX, centerY, blocksPool.cellSize)
 
         root.setOnTouchListener { v, event ->
             when (event.action) {
@@ -64,7 +57,7 @@ class Games : AppCompatActivity() {
                 MotionEvent.ACTION_MOVE -> {
                     if (capturedBlock != null) {
                         if(capturedBlock!!.detective) {
-                            GamesField.figureOutDetection(capturedBlock!!)
+                            gamesField.figureOutDetection(capturedBlock!!)
                         }
                         capturedBlock!!.move(
                             event.x.toInt() - lastX,
@@ -76,11 +69,11 @@ class Games : AppCompatActivity() {
                 }
                 MotionEvent.ACTION_UP -> {
                     if (event.x.toInt() == downX && event.y.toInt() == downY) {
-                        GamesField.figureOutDetection(capturedBlock!!)
-                        capturedBlock?.rotate(GamesField)
+                        gamesField.figureOutDetection(capturedBlock!!)
+                        capturedBlock?.rotate(gamesField)
                     }else{
                         if (capturedBlock != null) {
-                          capturedBlock!!.detective= GamesField.figureDetection(capturedBlock!!)
+                          capturedBlock!!.detective= gamesField.figureDetection(capturedBlock!!)
                         }
                     }
                     capturedBlock = null

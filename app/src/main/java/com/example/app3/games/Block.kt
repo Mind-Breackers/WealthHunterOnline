@@ -24,7 +24,6 @@ class Block(private val parent: RelativeLayout,  posX: Int, posY: Int, private v
     var cy: Int // координаты центра
 
     init {
-
         val cellsPos = RandomCells(Random.nextInt(2, 6), 4)
         for (point in cellsPos.cells) {
             cells.add(ImageView(parent.context))

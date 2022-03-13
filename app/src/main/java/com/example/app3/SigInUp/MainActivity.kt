@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity() {
     private var sigIn: ActivityResultLauncher<Intent>? = null
     private var sigUp: ActivityResultLauncher<Intent>? = null
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bindingclass = ActivityMainBinding.inflate(layoutInflater)

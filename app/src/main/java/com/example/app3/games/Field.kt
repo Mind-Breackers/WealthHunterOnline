@@ -5,16 +5,14 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import com.example.app3.R
 import com.example.app3.constance.Constance
-import java.lang.Math.*
 import kotlin.math.pow
-import kotlin.random.Random
 
 class Field(
     parent: RelativeLayout,
     private val size: Int,
-    private val cx: Int,
-    private val cy: Int,
-    private val sizeImg:Int=Constance.SIZE_IMG_FOR_GAMES
+    private val cx: Int, // координаты АБСОЛЮТНОГО центра поля (не угла клетки!!!)
+    private val cy: Int, // координаты АБСОЛЮТНОГО центра поля (не угла клетки!!!)
+    private val cellSize: Int
 ) {
     private val cells = ArrayList<ImageView>()
     private var coordinats = arrayListOf<Point>()
@@ -22,39 +20,13 @@ class Field(
     private var detective_coordinats = arrayListOf<Point>()
 
     init {
-
-
-        coordinats.add(Point(cx, cy))
-        for (index in 0 until size - 1) {
-            val pool = arrayListOf<Point>()
-            for (point in coordinats) {
-                if (Point(point.x + sizeImg, point.y).inArray(coordinats) &&
-                    Point(point.x + sizeImg, point.y).inDekstope(cx, cy,sizeImg)
-                ) {
-                    var temp = Point(point.x + sizeImg, point.y)
-                    pool.add(temp)
-                }
-                if (Point(point.x -sizeImg, point.y).inArray(coordinats) &&
-                    Point(point.x - sizeImg, point.y).inDekstope(cx, cy,sizeImg)
-                ) {
-                    var temp = Point(point.x - sizeImg, point.y)
-                    pool.add(temp)
-                }
-                if (Point(point.x, point.y + sizeImg).inArray(coordinats) &&
-                    Point(point.x, point.y + sizeImg).inDekstope(cx, cy,sizeImg)
-                ) {
-                    var temp = Point(point.x, point.y + sizeImg)
-                    pool.add(temp)
-                }
-                if (Point(point.x, point.y - sizeImg).inArray(coordinats) &&
-                    Point(point.x, point.y - sizeImg).inDekstope(cx, cy,sizeImg)
-                ) {
-                    var temp = Point(point.x, point.y - sizeImg)
-                    pool.add(temp)
-                }
-            }
-            coordinats.add(pool[Random.nextInt(0, pool.size)])
-        }
+        val genCells = RandomCells(size, 30, 3)
+        for (cell in genCells.cells) {
+            println("${cell[0]} ${cell[1]}")
+            coordinats.add(Point(
+                cx + cell[0] * cellSize - (genCells.left + genCells.right + 1) * cellSize / 2,
+                cy + cell[1] * cellSize - (genCells.top + genCells.bot + 1) * cellSize / 2
+            )) }
 
         for (i in 0 until coordinats.size) {
             val img = ImageView(parent.context)
@@ -62,8 +34,8 @@ class Field(
             img.setImageResource(R.drawable.field)
 
             val params = RelativeLayout.LayoutParams(
-                sizeImg,
-                sizeImg
+                cellSize,
+                cellSize
             )
             params.leftMargin = coordinats[i].x
             params.topMargin = coordinats[i].y
@@ -98,39 +70,39 @@ class Field(
         var flag_side = 0;
         for (block in figure.coordinatsBlock) {
             for (field in coordinats) {
-                if (block.y >= field.y && block.y < field.y + sizeImg
-                    && block.x < field.x + sizeImg  && block.x >= field.x && !block.inDetectivePos(detective_coordinats)
+                if (block.y >= field.y && block.y < field.y + cellSize
+                    && block.x < field.x + cellSize  && block.x >= field.x && !block.inDetectivePos(detective_coordinats)
                     && !block.inDetectivePos(detective_field1)) {
                     detective_field1.add(field)
                 }
             }
 
             for (field in coordinats) {
-                if (block.y + sizeImg  >= field.y && block.y + sizeImg  < field.y + sizeImg
-                    && block.x + sizeImg < field.x + sizeImg
-                    && block.x + sizeImg >= field.x
-                    && !block.inDetectivePos(detective_coordinats, sizeImg, sizeImg )
-                    && !block.inDetectivePos(detective_field2, sizeImg , sizeImg )
+                if (block.y + cellSize  >= field.y && block.y + cellSize  < field.y + cellSize
+                    && block.x + cellSize < field.x + cellSize
+                    && block.x + cellSize >= field.x
+                    && !block.inDetectivePos(detective_coordinats, cellSize, cellSize )
+                    && !block.inDetectivePos(detective_field2, cellSize , cellSize )
                 ) {
                     detective_field2.add(field)
                 }
             }
 
             for (field in coordinats) {
-                if (block.y + sizeImg  >= field.y && block.y + sizeImg < field.y + sizeImg
-                    && block.x < field.x + sizeImg
-                    && block.x >= field.x && !block.inDetectivePos(detective_coordinats, 0, sizeImg)
-                    && !block.inDetectivePos(detective_field3, 0, sizeImg )
+                if (block.y + cellSize  >= field.y && block.y + cellSize < field.y + cellSize
+                    && block.x < field.x + cellSize
+                    && block.x >= field.x && !block.inDetectivePos(detective_coordinats, 0, cellSize)
+                    && !block.inDetectivePos(detective_field3, 0, cellSize )
                 ) {
                     detective_field3.add(field)
                 }
             }
 
             for (field in coordinats) {
-                if (block.y >= field.y && block.y < field.y + sizeImg
-                    && block.x + sizeImg < field.x + sizeImg
-                    && block.x + sizeImg >= field.x && !block.inDetectivePos(detective_coordinats, sizeImg )
-                    && !block.inDetectivePos( detective_field4,sizeImg)
+                if (block.y >= field.y && block.y < field.y + cellSize
+                    && block.x + cellSize < field.x + cellSize
+                    && block.x + cellSize >= field.x && !block.inDetectivePos(detective_coordinats, cellSize )
+                    && !block.inDetectivePos( detective_field4,cellSize)
                 ) {
                     detective_field4.add(field)
                 }

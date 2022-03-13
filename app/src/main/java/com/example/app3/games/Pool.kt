@@ -17,16 +17,17 @@ class Pool(private val parent: RelativeLayout,
                 private val posX: Int,
                 private val posY: Int,
                 val size: Int) {
-    val blocks: Array<Block?> = arrayOf(null, null, null, null, null, null)
-    val colW = (size * 0.27).toInt()
     val actionI: MutableLiveData<Int> by lazy {
         MutableLiveData<Int>()
     }
-    var action = 2
+    val cellSize: Int = (size * 0.06).toInt()
+    private val blocks: Array<Block?> = arrayOf(null, null, null, null, null, null)
+    private val colW = (size * 0.27).toInt()
+    private var action = 2
 
     init {
         val bg = View(parent.context)
-        bg.setBackgroundColor(Color.argb(150, 0, 0, 0))
+        bg.setBackgroundColor(Color.argb(0, 0, 0, 150))
         bg.setOnTouchListener { v, event -> if (event.action == MotionEvent.ACTION_DOWN) {
             val id = getBlockId(event.x.toInt(), event.y.toInt())
             when (action) {
@@ -77,7 +78,7 @@ class Pool(private val parent: RelativeLayout,
         action = 2
         for (i in blocks.indices) if (blocks[i] != null) blocks[i]?.destroy(blockList)
         for (i in 0..5) {
-            val bl = Block(parent, posX, posY, (size * 0.06).toInt())
+            val bl = Block(parent, posX, posY, cellSize)
             bl.move(colW * (i % 3) + (colW - bl.width) / 2,
                 colW * (i / 3) + (colW - bl.height) / 2)
             blockList.add(bl)
