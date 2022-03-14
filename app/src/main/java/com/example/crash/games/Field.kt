@@ -1,24 +1,30 @@
 package com.example.crash.games
 
 import android.util.Log
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import com.example.crash.R
 import kotlin.math.pow
 
 class Field(
-    parent: RelativeLayout,
+    var parent: RelativeLayout,
     private val size: Int,
-    private val cx: Int, // координаты АБСОЛЮТНОГО центра поля (не угла клетки!!!)
-    private val cy: Int, // координаты АБСОЛЮТНОГО центра поля (не угла клетки!!!)
-    private val cellSize: Int=10
+    private val cellSize: Int=10,
+    private val heightrl:Int,
+    private val widthrl:Int
 ) {
     private val cells = ArrayList<ImageView>()
     private var coordinats = arrayListOf<Point>()
     private var fulldetective=false
+    private val cx: Int=widthrl/2// координаты АБСОЛЮТНОГО центра поля (не угла клетки!!!)
+    private val cy: Int= (heightrl*0.9).toInt()/2// координаты АБСОЛЮТНОГО центра поля (не угла клетки!!!)
     private var detective_coordinats = arrayListOf<Point>()
 
     init {
+        parent.layoutParams.height= (heightrl*0.9).toInt()
+        parent.layoutParams.width=widthrl
+
         val genCells = RandomCells(size, 30, 3)
         for (cell in genCells.cells) {
             println("${cell[0]} ${cell[1]}")

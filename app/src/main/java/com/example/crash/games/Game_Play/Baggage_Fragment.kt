@@ -9,7 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.core.view.marginTop
+import androidx.fragment.app.activityViewModels
 import com.example.crash.R
+import com.example.crash.basic_menu.DataPlayMenu
 import com.example.crash.databinding.FragmentBaggageBinding
 
 class Baggage_Fragment : Fragment() {
@@ -19,6 +21,7 @@ class Baggage_Fragment : Fragment() {
     var lastY = 0
     var downX = 0
     var downY = 0
+    private val dataPlayMenu: DataPlayMenu by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,25 +39,26 @@ class Baggage_Fragment : Fragment() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-           // activity?.supportFragmentManager?.beginTransaction()?.setCustomAnimations(R.anim.slide_in,R.anim.slide_out)?.remove(this)?.commit()
+        // activity?.supportFragmentManager?.beginTransaction()?.setCustomAnimations(R.anim.slide_in,R.anim.slide_out)?.remove(this)?.commit()
+
 
         baggageBinding.rlBaggage.setOnTouchListener { v, event ->
-            when(event.action){
+            when (event.action) {
 
-                MotionEvent.ACTION_DOWN->{
+                MotionEvent.ACTION_DOWN -> {
                     lastY = event.y.toInt()
                 }
 
 
-                MotionEvent.ACTION_MOVE->{
-                    move(view,  event.y.toInt() - lastY)
+                MotionEvent.ACTION_MOVE -> {
+                    move(view, event.y.toInt() - lastY)
                     lastY = event.y.toInt()
                     //activity?.supportFragmentManager?.beginTransaction()?.setCustomAnimations(R.anim.slide_in,R.anim.slide_out)?.remove(this)?.commit()
                 }
 
-                MotionEvent.ACTION_UP->{
+                MotionEvent.ACTION_UP -> {
                     lastY = event.y.toInt()
-                    close_Baggage(view.height/2,view)
+                    close_Baggage(view.height / 2, view)
                 }
 
             }

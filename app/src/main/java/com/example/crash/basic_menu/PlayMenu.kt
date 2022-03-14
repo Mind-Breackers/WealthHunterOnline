@@ -40,18 +40,20 @@ class PlayMenu : Fragment() {
         binding.butEazy.setOnClickListener {
             binding.previeFields.removeAllViews()
             Log.d("Log1","${binding.lnFields.width}")
-            var previewFields=Field(binding.previeFields,10,binding.lnFields.width/2,binding.lnFields.height/2,40)
+            var previewFields=Field(binding.previeFields,10,40,binding.lnFields.width,
+                (binding.lnFields.height*1.1).toInt()
+            )
             difficult=1
         }
         binding.butNormal.setOnClickListener {
             Log.d("Log1","${binding.lnFields.width}")
             binding.previeFields.removeAllViews()
-            var previewFields=Field(binding.previeFields,20,binding.lnFields.width/2,binding.lnFields.height/2,40)
+            var previewFields=Field(binding.previeFields,20,40,binding.lnFields.width, (binding.lnFields.height*1.1).toInt())
             difficult=2
         }
         binding.btHard.setOnClickListener {
             binding.previeFields.removeAllViews()
-            var previewFields=Field(binding.previeFields,30,binding.lnFields.width/2,binding.lnFields.height/2,40)
+           var previewFields=Field(binding.previeFields,30,40,binding.lnFields.width, (binding.lnFields.height*1.1).toInt())
             difficult=3
         }
     }

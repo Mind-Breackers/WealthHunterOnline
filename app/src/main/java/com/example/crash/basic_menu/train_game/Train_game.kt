@@ -57,7 +57,7 @@ class Train_game : Fragment(){
                 }
                binding.lnFTrain.post {
                    Center = Point(binding.lnFTrain.width/2, binding.lnFTrain.height / 2)
-                   previewFields = Field(binding.fieldTrain, 10, Center.x, Center.y, 50)
+                  // previewFields = Field(binding.fieldTrain, 10, Center.x, Center.y, 50)
                    pool=Pool(binding.fieldTrain, blocks, 0, 0, 830)
                    binding.fieldTrain.post {
                        binding.lnFTrain.visibility = View.GONE

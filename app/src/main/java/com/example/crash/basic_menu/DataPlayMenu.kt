@@ -48,5 +48,9 @@ open class DataPlayMenu:ViewModel() {
         MutableLiveData<View>()
     }
 
+    val HeightBaggage:MutableLiveData<Int> by lazy {
+        MutableLiveData<Int>()
+    }
+
 
 }

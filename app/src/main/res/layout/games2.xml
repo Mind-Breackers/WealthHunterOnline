@@ -3,12 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#432424">
 
     <LinearLayout
         android:id="@+id/Player1"
-        android:layout_width="match_parent"
-        android:layout_height="316dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:background="#574B4B"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -18,8 +19,8 @@
 
         <LinearLayout
             android:id="@+id/field1"
-            android:layout_width="match_parent"
-            android:layout_height="220dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="#CFBDBD"
             android:orientation="vertical">
 
@@ -34,9 +35,10 @@
         <FrameLayout
             android:id="@+id/baggage"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <LinearLayout
+                android:id="@+id/ln_baggage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -80,8 +82,8 @@
                         android:text="Рюкзак" />
 
                 </LinearLayout>
-
             </LinearLayout>
+
         </FrameLayout>
 
     </LinearLayout>
@@ -89,7 +91,7 @@
     <LinearLayout
         android:id="@+id/Player2"
         android:layout_width="match_parent"
-        android:layout_height="315dp"
+        android:layout_height="wrap_content"
         android:background="#574B4B"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/Generator_pool"
@@ -101,10 +103,6 @@
             android:id="@+id/field2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="80dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="80dp"
-            android:layout_marginBottom="20dp"
             android:background="#CFBDBD"
             android:orientation="vertical">
 
@@ -120,7 +118,7 @@
     <LinearLayout
         android:id="@+id/Generator_pool"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:background="#251839"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/Player1"
