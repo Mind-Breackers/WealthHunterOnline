@@ -18,11 +18,11 @@ class Field(
     private var coordinats = arrayListOf<Point>()
     private var fulldetective=false
     private val cx: Int=widthrl/2// координаты АБСОЛЮТНОГО центра поля (не угла клетки!!!)
-    private val cy: Int= (heightrl*0.9).toInt()/2// координаты АБСОЛЮТНОГО центра поля (не угла клетки!!!)
+    private val cy: Int= (heightrl*1).toInt()/2// координаты АБСОЛЮТНОГО центра поля (не угла клетки!!!)
     private var detective_coordinats = arrayListOf<Point>()
 
     init {
-        parent.layoutParams.height= (heightrl*0.9).toInt()
+        parent.layoutParams.height= (heightrl*1).toInt()
         parent.layoutParams.width=widthrl
 
         val genCells = RandomCells(size, 30, 3)

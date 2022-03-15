@@ -19,9 +19,9 @@ class Pool(private val parent: RelativeLayout,
     val actionI: MutableLiveData<Int> by lazy {
         MutableLiveData<Int>()
     }
-    val cellSize: Int = (size * 0.03).toInt()
+    val cellSize: Int = (size * 0.04).toInt()
     private val blocks: Array<Block?> = arrayOf(null, null, null, null, null, null)
-    private val colW = (size * 0.28).toInt()
+    private val colW = (size * 0.20).toInt()
     private var action = 2
 
     init {

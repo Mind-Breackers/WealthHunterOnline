@@ -3,6 +3,7 @@ package com.example.crash.games.Game_Play
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.RelativeLayout
 import androidx.activity.viewModels
@@ -13,6 +14,7 @@ import androidx.fragment.app.activityViewModels
 import com.example.crash.R
 import com.example.crash.basic_menu.DataPlayMenu
 import com.example.crash.databinding.Games2Binding
+
 import com.example.crash.games.Block
 import com.example.crash.games.Field
 import com.example.crash.games.Pool
@@ -40,31 +42,32 @@ class Games : AppCompatActivity() {
         setContentView(bindingclass.root)
 
         val displaymetrics = resources.displayMetrics
-
-
+        val displayheight=displaymetrics.heightPixels/3
+        val displaywidth=displaymetrics.widthPixels
+        Log.d("Display","$displayheight + $displaywidth")
         root=bindingclass.rlPool
 
         bindingclass.rlPool.post {
-            val blocksPool = Pool(root, blocks, 0, 0, bindingclass.rlPool.width)
+            val blocksPool = Pool(root, blocks, 0, 0, displaywidth)
             //поле теперь динамически создается в зависимости от размера пула(надо как-то еще обдумать это будет
             bindingclass.field1.post {
                 val FieldPlayer1 = Field(
                     bindingclass.rlField1,
-                    30, blocksPool.cellSize,bindingclass.rlPool.height,
-                    bindingclass.rlPool.width
+                    30, blocksPool.cellSize,displayheight,
+                    displaywidth
 
                 )
             }
 
-            sizeBaggage = bindingclass.baggage.layoutParams.height
             //вычесление оставшегося размера для рюкзака
             bindingclass.field2.post {
                 val FieldPlayer2 = Field(
                     bindingclass.rlField2,
-                    30, blocksPool.cellSize,bindingclass.rlPool.height,
-                    bindingclass.rlPool.width
+                    30, blocksPool.cellSize,displayheight,
+                    displaywidth
                 )
             }
+            sizeBaggage = bindingclass.baggage.layoutParams.height
         }
             bindingclass.btnBaggege.setOnClickListener {
                 bindingclass.baggage.layoutParams.height=sizeBaggage
@@ -72,6 +75,8 @@ class Games : AppCompatActivity() {
 
             }
 
+
+        //Тут вся логика взаимодействия поля и фигур
        /* root = bindingclass.root
         rootblock=bindingclass.rootblock
         var centerY = displaymetrics.heightPixels / 2
