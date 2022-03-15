@@ -42,20 +42,19 @@ class Games : AppCompatActivity() {
         setContentView(bindingclass.root)
 
         val displaymetrics = resources.displayMetrics
-        val displayheight=displaymetrics.heightPixels/3
+        val displayheight=displaymetrics.heightPixels
         val displaywidth=displaymetrics.widthPixels
-        Log.d("Display","$displayheight + $displaywidth")
         root=bindingclass.rlPool
 
+        val blocksPool = Pool(root, blocks, 0, 0, displaywidth)
         bindingclass.rlPool.post {
-            val blocksPool = Pool(root, blocks, 0, 0, displaywidth)
+            val fieldheight=(displayheight-2*bindingclass.rlPool.height)/2+bindingclass.rlPool.height/4
             //поле теперь динамически создается в зависимости от размера пула(надо как-то еще обдумать это будет
             bindingclass.field1.post {
                 val FieldPlayer1 = Field(
                     bindingclass.rlField1,
-                    30, blocksPool.cellSize,displayheight,
+                    30, blocksPool.cellSize,fieldheight,
                     displaywidth
-
                 )
             }
 
@@ -63,18 +62,18 @@ class Games : AppCompatActivity() {
             bindingclass.field2.post {
                 val FieldPlayer2 = Field(
                     bindingclass.rlField2,
-                    30, blocksPool.cellSize,displayheight,
+                    30, blocksPool.cellSize,fieldheight,
                     displaywidth
                 )
             }
-            sizeBaggage = bindingclass.baggage.layoutParams.height
+            sizeBaggage = bindingclass.rlPool.height/2
+            bindingclass.baggage.layoutParams.height=sizeBaggage
+
         }
             bindingclass.btnBaggege.setOnClickListener {
-                bindingclass.baggage.layoutParams.height=sizeBaggage
                 openFrag(Baggage_Fragment.newInstance(), bindingclass.baggage.id)
 
             }
-
 
         //Тут вся логика взаимодействия поля и фигур
        /* root = bindingclass.root

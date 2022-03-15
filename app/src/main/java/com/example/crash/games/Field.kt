@@ -11,18 +11,18 @@ class Field(
     var parent: RelativeLayout,
     private val size: Int,
     private val cellSize: Int=10,
-    private val heightrl:Int,
-    private val widthrl:Int
+    heightrl:Int,
+    widthrl:Int
 ) {
     private val cells = ArrayList<ImageView>()
     private var coordinats = arrayListOf<Point>()
     private var fulldetective=false
     private val cx: Int=widthrl/2// координаты АБСОЛЮТНОГО центра поля (не угла клетки!!!)
-    private val cy: Int= (heightrl*1).toInt()/2// координаты АБСОЛЮТНОГО центра поля (не угла клетки!!!)
+    private val cy: Int= heightrl/2// координаты АБСОЛЮТНОГО центра поля (не угла клетки!!!)
     private var detective_coordinats = arrayListOf<Point>()
 
     init {
-        parent.layoutParams.height= (heightrl*1).toInt()
+        parent.layoutParams.height= heightrl
         parent.layoutParams.width=widthrl
 
         val genCells = RandomCells(size, 30, 3)

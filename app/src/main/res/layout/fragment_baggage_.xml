@@ -4,24 +4,14 @@
     android:id="@+id/baggage_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E80C0C"
     tools:context=".games.Game_Play.Baggage_Fragment">
 
-    <LinearLayout
-        android:id="@+id/linear_baggage"
+    <RelativeLayout
+        android:id="@+id/rl2_baggage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:background="#100303">
 
-        <RelativeLayout
-            android:id="@+id/rl_baggage"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="0dp">
-
-        </RelativeLayout>
-
-    </LinearLayout>
+    </RelativeLayout>
 
 </FrameLayout>

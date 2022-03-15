@@ -2,12 +2,14 @@ package com.example.crash.games.Game_Play
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.RelativeLayout
 import androidx.core.view.marginTop
 import androidx.fragment.app.activityViewModels
 import com.example.crash.R
@@ -42,7 +44,7 @@ class Baggage_Fragment : Fragment() {
         // activity?.supportFragmentManager?.beginTransaction()?.setCustomAnimations(R.anim.slide_in,R.anim.slide_out)?.remove(this)?.commit()
 
 
-        baggageBinding.rlBaggage.setOnTouchListener { v, event ->
+        baggageBinding.baggageFragment.setOnTouchListener { v, event ->
             when (event.action) {
 
                 MotionEvent.ACTION_DOWN -> {
@@ -51,15 +53,17 @@ class Baggage_Fragment : Fragment() {
 
 
                 MotionEvent.ACTION_MOVE -> {
-                    move(view, event.y.toInt() - lastY)
+                    Log.d("Display","1=${event.y.toInt()}")
+                    move( baggageBinding.rl2Baggage, event.y.toInt() - lastY)
                     lastY = event.y.toInt()
-                    //activity?.supportFragmentManager?.beginTransaction()?.setCustomAnimations(R.anim.slide_in,R.anim.slide_out)?.remove(this)?.commit()
+                    check_in_baggage(lastY,view)
                 }
 
                 MotionEvent.ACTION_UP -> {
                     lastY = event.y.toInt()
-                    close_Baggage(view.height / 2, view)
+                    close_Baggage(view.height / 2, baggageBinding.rl2Baggage)
                 }
+
 
             }
             true
@@ -67,9 +71,18 @@ class Baggage_Fragment : Fragment() {
     }
 
     fun move(relativeLayout: View, deltaY: Int) {
-        val params = relativeLayout.layoutParams as FrameLayout.LayoutParams
-        params.topMargin +=deltaY
-        relativeLayout.layoutParams=params
+            val params = relativeLayout.layoutParams as FrameLayout.LayoutParams
+            params.topMargin += deltaY
+            relativeLayout.layoutParams = params
+    }
+
+    fun check_in_baggage(y:Int,view: View){
+       if(y<0){
+            move(view,0-view.marginTop)
+        }
+        if(y>view.height){
+            activity?.supportFragmentManager?.beginTransaction()?.setCustomAnimations(R.anim.slide_in,R.anim.slide_out)?.remove(this)?.commit()
+        }
     }
 
     fun close_Baggage(centerView:Int,view: View){
