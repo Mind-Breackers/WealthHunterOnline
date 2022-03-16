@@ -41,7 +41,6 @@ class Baggage_Fragment : Fragment() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // activity?.supportFragmentManager?.beginTransaction()?.setCustomAnimations(R.anim.slide_in,R.anim.slide_out)?.remove(this)?.commit()
 
 
         baggageBinding.baggageFragment.setOnTouchListener { v, event ->
@@ -70,6 +69,13 @@ class Baggage_Fragment : Fragment() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        dataPlayMenu.LifeBaggage.value=true
+    }
+
+
+
     fun move(relativeLayout: View, deltaY: Int) {
             val params = relativeLayout.layoutParams as FrameLayout.LayoutParams
             params.topMargin += deltaY
@@ -93,6 +99,11 @@ class Baggage_Fragment : Fragment() {
             move(view,0-view.marginTop)
         }
     }
+
+
+
+
+
 
     companion object {
         @JvmStatic

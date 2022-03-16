@@ -11,6 +11,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LifecycleOwner
 import com.example.crash.R
 import com.example.crash.basic_menu.DataPlayMenu
 import com.example.crash.databinding.Games2Binding
@@ -48,13 +49,14 @@ class Games : AppCompatActivity() {
 
         val blocksPool = Pool(root, blocks, 0, 0, displaywidth)
         bindingclass.rlPool.post {
-            val fieldheight=(displayheight-2*bindingclass.rlPool.height)/2+bindingclass.rlPool.height/4
+            val fieldheight=(displayheight-bindingclass.rlPool.height)/2
+            val fieldwidth=displaywidth-(bindingclass.skillsPayer2Left.width*2)
             //поле теперь динамически создается в зависимости от размера пула(надо как-то еще обдумать это будет
             bindingclass.field1.post {
                 val FieldPlayer1 = Field(
                     bindingclass.rlField1,
                     30, blocksPool.cellSize,fieldheight,
-                    displaywidth
+                    fieldwidth
                 )
             }
 
@@ -63,17 +65,27 @@ class Games : AppCompatActivity() {
                 val FieldPlayer2 = Field(
                     bindingclass.rlField2,
                     30, blocksPool.cellSize,fieldheight,
-                    displaywidth
+                    fieldwidth
                 )
             }
             sizeBaggage = bindingclass.rlPool.height/2
-            bindingclass.baggage.layoutParams.height=sizeBaggage
+            bindingclass.rlField1.post {
+                bindingclass.baggage.layoutParams.height = sizeBaggage
+            }
 
         }
             bindingclass.btnBaggege.setOnClickListener {
                 openFrag(Baggage_Fragment.newInstance(), bindingclass.baggage.id)
-
+                bindingclass.baggage.visibility=View.VISIBLE
             }
+
+
+        dataPlayMenu.LifeBaggage.observe(this,{
+            bindingclass.baggage.visibility=View.GONE
+        })
+
+
+
 
         //Тут вся логика взаимодействия поля и фигур
        /* root = bindingclass.root

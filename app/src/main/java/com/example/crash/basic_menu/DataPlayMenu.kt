@@ -35,7 +35,6 @@ open class DataPlayMenu:ViewModel() {
         MutableLiveData<Int>()
     }
 
-
     val HintString:MutableLiveData<String> by lazy {
         MutableLiveData<String>()
     }
@@ -48,8 +47,8 @@ open class DataPlayMenu:ViewModel() {
         MutableLiveData<View>()
     }
 
-    val HeightBaggage:MutableLiveData<Int> by lazy {
-        MutableLiveData<Int>()
+    val LifeBaggage:MutableLiveData<Boolean> by lazy {
+        MutableLiveData<Boolean>()
     }
 
 

@@ -25,7 +25,7 @@ class Field(
         parent.layoutParams.height= heightrl
         parent.layoutParams.width=widthrl
 
-        val genCells = RandomCells(size, 30, 3)
+        val genCells = RandomCells(size, 20, 5)
         for (cell in genCells.cells) {
             println("${cell[0]} ${cell[1]}")
             coordinats.add(Point(
