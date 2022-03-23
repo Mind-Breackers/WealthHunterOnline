@@ -79,12 +79,16 @@ class Games : AppCompatActivity() {
             bindingclass.Player1.post {
                 val params = bindingclass.skillsLeftPlayer1.layoutParams as LinearLayout.LayoutParams
                 params.width = (displaywidth - fieldwidth) / 2
+                params.height=fieldheight
                 bindingclass.skillsLeftPlayer1.layoutParams = params
 
                 val params1 = bindingclass.skillsRight.layoutParams as LinearLayout.LayoutParams
                 params1.width = (displaywidth - fieldwidth) / 2
+                params1.height=fieldheight
                 bindingclass.skillsRight.layoutParams=params1
 
+
+                val cardParams=bindingclass.cardBtn.layoutParams as LinearLayout.LayoutParams
 
 
                 val params2 = bindingclass.field.layoutParams as LinearLayout.LayoutParams
