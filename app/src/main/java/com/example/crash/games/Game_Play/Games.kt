@@ -84,11 +84,10 @@ class Games : AppCompatActivity() {
 
                 val params1 = bindingclass.skillsRight.layoutParams as LinearLayout.LayoutParams
                 params1.width = (displaywidth - fieldwidth) / 2
-                params1.height=fieldheight
+                params1.height=fieldheight-bindingclass.baggageBtn.height
                 bindingclass.skillsRight.layoutParams=params1
 
 
-                val cardParams=bindingclass.cardBtn.layoutParams as LinearLayout.LayoutParams
 
 
                 val params2 = bindingclass.field.layoutParams as LinearLayout.LayoutParams
