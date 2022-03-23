@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.view.Window
 import android.widget.RelativeLayout
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
@@ -44,6 +45,7 @@ class Games : AppCompatActivity() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         bindingclass = Games2Binding.inflate(layoutInflater)
         setContentView(bindingclass.root)
 

@@ -15,7 +15,7 @@ class Pool(private val parent: RelativeLayout,
                 private val blockList: ArrayList<Block>,
                 private val posX: Int,
                 private val posY: Int,
-                val size: Int,) {
+                size: Int,) {
     val actionI: MutableLiveData<Int> by lazy {
         MutableLiveData<Int>()
     }

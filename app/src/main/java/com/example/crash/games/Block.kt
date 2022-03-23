@@ -19,13 +19,17 @@ class Block(private val parent: RelativeLayout,  posX: Int, posY: Int, private v
     var detective = false
     var cx: Int // координаты центра
     var cy: Int // координаты центра
+    val type: Type
 
     init {
+        val t = Random.nextInt(8)
+        type = Type.values()[if (t > 4) 0 else t]
+
         val cellsPos = RandomCells(Random.nextInt(2, 6), 4)
         for (point in cellsPos.cells) {
             cells.add(ImageView(parent.context))
-            cells.last().setImageResource(R.drawable.gold)
-
+            cells.last().setImageResource(IMAGE_RESOURCES[type.ordinal*4 + Random.nextInt(4)])
+            cells.last().rotation = 90f * Random.nextInt(4)
             val params = RelativeLayout.LayoutParams(size, size)
             params.leftMargin = posX + (point[0] - cellsPos.left) * size
             params.topMargin = posY + (point[1] - cellsPos.top) * size
@@ -164,6 +168,16 @@ class Block(private val parent: RelativeLayout,  posX: Int, posY: Int, private v
         for (index in cells){
             index.visibility = View.GONE
         }
+    }
+
+    enum class Type { DEFAULT, EARTH, WATER, FIRE, AIR }
+    companion object {
+        val IMAGE_RESOURCES = arrayOf(
+            R.drawable.blok01, R.drawable.blok02, R.drawable.blok03, R.drawable.blok04,
+            R.drawable.blok11, R.drawable.blok12, R.drawable.blok13, R.drawable.blok14,
+            R.drawable.blok21, R.drawable.blok22, R.drawable.blok23, R.drawable.blok24,
+            R.drawable.blok31, R.drawable.blok32, R.drawable.blok33, R.drawable.blok34,
+            R.drawable.blok41, R.drawable.blok42, R.drawable.blok43, R.drawable.blok44)
     }
 }
 
