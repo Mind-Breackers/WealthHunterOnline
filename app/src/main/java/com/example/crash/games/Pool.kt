@@ -23,10 +23,10 @@ class Pool(private val parent: RelativeLayout,
     private val blocks: Array<Block?> = arrayOf(null, null, null, null, null, null)
     private val colW = (size * 0.28).toInt()
     private var action = 2
-
+    val height=colW*2
     init {
         val bg = View(parent.context)
-        bg.setBackgroundColor(Color.argb(0, 0, 0, 150))
+        bg.setBackgroundResource(R.drawable.pool_rl)
         bg.setOnTouchListener { v, event -> if (event.action == MotionEvent.ACTION_DOWN) {
             val id = getBlockId(event.x.toInt(), event.y.toInt())
             when (action) {
@@ -50,15 +50,15 @@ class Pool(private val parent: RelativeLayout,
         parent.addView(bg, params)
 
         val btn = Button(parent.context)
-        btn.setBackgroundResource(R.drawable.btn_update)
+        btn.setBackgroundResource(R.drawable.update_btn)
         val btnAnim = RotateAnimation(0f, -360f,
             size * 0.08f, size * 0.08f)
         btnAnim.duration = 700
         btn.setOnTouchListener {view, event ->
             when (event.action) {
-                MotionEvent.ACTION_DOWN -> view.setBackgroundResource(R.drawable.btn_update_pressed)
+                MotionEvent.ACTION_DOWN -> view.setBackgroundResource(R.drawable.update_btn)
                 MotionEvent.ACTION_UP -> {
-                    view.setBackgroundResource(R.drawable.btn_update)
+                    view.setBackgroundResource(R.drawable.update_btn)
                     view.startAnimation(btnAnim)
                     update()
                 }

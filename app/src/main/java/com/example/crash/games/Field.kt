@@ -1,7 +1,6 @@
 package com.example.crash.games
 
 import android.util.Log
-import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import com.example.crash.R
@@ -11,19 +10,19 @@ class Field(
     var parent: RelativeLayout,
     private val size: Int,
     private val cellSize: Int=10,
+    private val cx: Int,
+    private val cy:Int,
     heightrl:Int,
     widthrl:Int
 ) {
     private val cells = ArrayList<ImageView>()
     private var coordinats = arrayListOf<Point>()
     private var fulldetective=false
-    private val cx: Int=widthrl/2// координаты АБСОЛЮТНОГО центра поля (не угла клетки!!!)
-    private val cy: Int= heightrl/2// координаты АБСОЛЮТНОГО центра поля (не угла клетки!!!)
+  //  private val cx: Int=widthrl/2// координаты АБСОЛЮТНОГО центра поля (не угла клетки!!!)
+   // private val cy: Int= heightrl/2// координаты АБСОЛЮТНОГО центра поля (не угла клетки!!!)
     private var detective_coordinats = arrayListOf<Point>()
 
     init {
-        parent.layoutParams.height= heightrl
-        parent.layoutParams.width=widthrl
 
         val genCells = RandomCells(size, 20, 5)
         for (cell in genCells.cells) {
@@ -36,7 +35,7 @@ class Field(
         for (i in 0 until coordinats.size) {
             val img = ImageView(parent.context)
             cells.add(img)
-            img.setImageResource(R.drawable.field)
+            img.setImageResource(R.drawable.field1)
 
             val params = RelativeLayout.LayoutParams(
                 cellSize,
