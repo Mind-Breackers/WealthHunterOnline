@@ -13,10 +13,10 @@ class Point(var x: Int = 0, var y: Int = 0) {
         return true
     }
 
-    fun inDetectivePos(array: ArrayList<Point>,coordinate_offsetx :Int =0,coordinate_offsety:Int =0): Boolean {
+    fun inDetectivePos(array: ArrayList<Point>,coordinate_offsetx :Int =0,coordinate_offsety:Int =0,fieldSize:Int): Boolean {
         for (field in array) {
-            if (this.y +coordinate_offsety >= field.y && this.y + coordinate_offsety < field.y + 50
-                && this.x +coordinate_offsetx < field.x + 50 && this.x + coordinate_offsetx >= field.x
+            if (this.y +coordinate_offsety >= field.y && this.y + coordinate_offsety < field.y + fieldSize
+                && this.x +coordinate_offsetx < field.x + fieldSize && this.x + coordinate_offsetx >= field.x
             ) {
                 return true
             }
@@ -27,13 +27,13 @@ class Point(var x: Int = 0, var y: Int = 0) {
     fun getDetectivePos(array: ArrayList<Point>): Int {
         for (index in 0 until array.size) {
             //костыль должно просто по равентству кординат
-            /*if (array[index].x == this.x && array[index].y == this.y) {
-                return index
-            }*/
-            if (array[index].x <= this.x+1 && array[index].x >= this.x-1 &&
-                array[index].y <= this.y+1 && array[index].y >= this.y-1) {
+            if (array[index].x == this.x && array[index].y == this.y) {
                 return index
             }
+            /*if (array[index].x <= this.x+1 && array[index].x >= this.x-1 &&
+                array[index].y <= this.y+1 && array[index].y >= this.y-1) {
+                return index
+            }*/
         }
         return -1
     }

@@ -24,7 +24,7 @@ class Field(
 
     init {
 
-        val genCells = RandomCells(size, 20, 5)
+        val genCells = RandomCells(size, 11, 7)
         for (cell in genCells.cells) {
             println("${cell[0]} ${cell[1]}")
             coordinats.add(Point(
@@ -75,8 +75,8 @@ class Field(
         for (block in figure.coordinatsBlock) {
             for (field in coordinats) {
                 if (block.y >= field.y && block.y < field.y + cellSize
-                    && block.x < field.x + cellSize  && block.x >= field.x && !block.inDetectivePos(detective_coordinats)
-                    && !block.inDetectivePos(detective_field1)) {
+                    && block.x < field.x + cellSize  && block.x >= field.x && !block.inDetectivePos(detective_coordinats,fieldSize = cellSize)
+                    && !block.inDetectivePos(detective_field1,fieldSize = cellSize)) {
                     detective_field1.add(field)
                 }
             }
@@ -85,8 +85,8 @@ class Field(
                 if (block.y + cellSize  >= field.y && block.y + cellSize  < field.y + cellSize
                     && block.x + cellSize < field.x + cellSize
                     && block.x + cellSize >= field.x
-                    && !block.inDetectivePos(detective_coordinats, cellSize, cellSize )
-                    && !block.inDetectivePos(detective_field2, cellSize , cellSize )
+                    && !block.inDetectivePos(detective_coordinats, cellSize, cellSize ,fieldSize = cellSize)
+                    && !block.inDetectivePos(detective_field2, cellSize , cellSize,fieldSize = cellSize )
                 ) {
                     detective_field2.add(field)
                 }
@@ -95,8 +95,8 @@ class Field(
             for (field in coordinats) {
                 if (block.y + cellSize  >= field.y && block.y + cellSize < field.y + cellSize
                     && block.x < field.x + cellSize
-                    && block.x >= field.x && !block.inDetectivePos(detective_coordinats, 0, cellSize)
-                    && !block.inDetectivePos(detective_field3, 0, cellSize )
+                    && block.x >= field.x && !block.inDetectivePos(detective_coordinats, 0, cellSize,fieldSize = cellSize)
+                    && !block.inDetectivePos(detective_field3, 0, cellSize ,fieldSize = cellSize)
                 ) {
                     detective_field3.add(field)
                 }
@@ -105,8 +105,8 @@ class Field(
             for (field in coordinats) {
                 if (block.y >= field.y && block.y < field.y + cellSize
                     && block.x + cellSize < field.x + cellSize
-                    && block.x + cellSize >= field.x && !block.inDetectivePos(detective_coordinats, cellSize )
-                    && !block.inDetectivePos( detective_field4,cellSize)
+                    && block.x + cellSize >= field.x && !block.inDetectivePos(detective_coordinats, cellSize ,fieldSize = cellSize)
+                    && !block.inDetectivePos( detective_field4,cellSize,fieldSize = cellSize)
                 ) {
                     detective_field4.add(field)
                 }

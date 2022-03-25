@@ -8,6 +8,7 @@ import android.view.animation.*
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import com.example.crash.R
+import kotlin.math.roundToInt
 import kotlin.random.Random
 
 class Block(private val parent: RelativeLayout,  posX: Int, posY: Int, private val size: Int) {
@@ -19,6 +20,10 @@ class Block(private val parent: RelativeLayout,  posX: Int, posY: Int, private v
     var detective = false
     var cx: Int // координаты центра
     var cy: Int // координаты центра
+    var touch_x_left:Int=0
+    var touch_x_right:Int=0
+    var touch_y_top:Int=0
+    var touch_y_bottom:Int=0
     val type: Type
 
     init {
@@ -43,8 +48,13 @@ class Block(private val parent: RelativeLayout,  posX: Int, posY: Int, private v
 
     fun containsPoint(x: Int, y: Int): Boolean {
         for (cell in cells)
-            if (x in (cell.left..cell.right) && y in (cell.top..cell.bottom))
+            if (x in (cell.left..cell.right) && y in (cell.top..cell.bottom)) {
+                touch_x_left=((x-cells.minOf{it.left}))
+                touch_x_right=((x-cells.maxOf{it.right}))
+                touch_y_top=((y-cells.minOf{it.top}))
+                touch_y_bottom=((y-cells.maxOf{it.bottom}))
                 return true
+            }
         return false
     }
 
@@ -63,6 +73,7 @@ class Block(private val parent: RelativeLayout,  posX: Int, posY: Int, private v
             cell.layoutParams = params
         }
     }
+
 
     fun startCreateAnimation() {
         for (cell in cells) {
