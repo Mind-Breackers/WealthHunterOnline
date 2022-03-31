@@ -8,15 +8,16 @@ import android.view.animation.*
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import com.example.crash.R
-import kotlin.math.roundToInt
 import kotlin.random.Random
 
-class Block(private val parent: RelativeLayout,  posX: Int, posY: Int, private val size: Int) {
+class Block(private var parent: RelativeLayout, posX: Int, posY: Int,private var size: Int,
+            copy: Block? =null) {
     val cells = ArrayList<ImageView>()
     val width: Int
     val height: Int
     var coordinatsBlock = arrayListOf<Point>()
     private var lockAnimated = 0
+    lateinit var cellsPos :RandomCells
     var detective = false
     var cx: Int // координаты центра
     var cy: Int // координаты центра
@@ -24,26 +25,49 @@ class Block(private val parent: RelativeLayout,  posX: Int, posY: Int, private v
     var touch_x_right:Int=0
     var touch_y_top:Int=0
     var touch_y_bottom:Int=0
-    val type: Type
+    var type: Type
 
     init {
-        val t = Random.nextInt(8)
-        type = Type.values()[if (t > 4) 0 else t]
+        if(copy==null) {
+            val t = Random.nextInt(8)
+            type = Type.values()[if (t > 4) 0 else t]
+            cellsPos = RandomCells(Random.nextInt(2, 6), 4)
 
-        val cellsPos = RandomCells(Random.nextInt(2, 6), 4)
-        for (point in cellsPos.cells) {
-            cells.add(ImageView(parent.context))
-            cells.last().setImageResource(IMAGE_RESOURCES[type.ordinal*4 + Random.nextInt(4)])
-            cells.last().rotation = 90f * Random.nextInt(4)
-            val params = RelativeLayout.LayoutParams(size, size)
-            params.leftMargin = posX + (point[0] - cellsPos.left) * size
-            params.topMargin = posY + (point[1] - cellsPos.top) * size
-            parent.addView(cells.last(), params)
+            for (point in cellsPos.cells) {
+                cells.add(ImageView(parent.context))
+                cells.last().setImageResource(IMAGE_RESOURCES[type.ordinal * 4 + Random.nextInt(4)])
+                cells.last().rotation = 90f * Random.nextInt(4)
+                val params = RelativeLayout.LayoutParams(size, size)
+                params.leftMargin = posX + (point[0] - cellsPos.left) * size
+                params.topMargin = posY + (point[1] - cellsPos.top) * size
+                parent.addView(cells.last(), params)
+            }
+            width = (cellsPos.right - cellsPos.left + 1) * size
+            height = (cellsPos.bot - cellsPos.top + 1) * size
+            cx = posX + width / 2
+            cy = posY + height / 2
         }
-        width = (cellsPos.right - cellsPos.left + 1) * size
-        height = (cellsPos.bot - cellsPos.top + 1) * size
-        cx = posX + width / 2
-        cy = posY + height / 2
+        else{
+            type = copy.type
+            cellsPos = copy.cellsPos
+            size=copy.size
+
+
+            for (point in cellsPos.cells) {
+                cells.add(ImageView(parent.context))
+                cells.last().setImageResource(IMAGE_RESOURCES[type.ordinal * 4 + Random.nextInt(4)])
+                cells.last().rotation = 90f * Random.nextInt(4)
+                val params = RelativeLayout.LayoutParams(size, size)
+                params.leftMargin = posX + (point[0] - cellsPos.left) * size
+                params.topMargin = posY + (point[1] - cellsPos.top) * size
+                coordinatsBlock.add(Point(params.leftMargin,params.topMargin))
+                parent.addView(cells.last(), params)
+            }
+            width = (cellsPos.right - cellsPos.left + 1) * size
+            height = (cellsPos.bot - cellsPos.top + 1) * size
+            cx = posX + width / 2
+            cy = posY + height / 2
+        }
     }
 
     fun containsPoint(x: Int, y: Int): Boolean {

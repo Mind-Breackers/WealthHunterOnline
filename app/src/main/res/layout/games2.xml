@@ -170,18 +170,12 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/ln_baggage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:orientation="vertical">
 
-                        <ImageButton
-                            android:id="@+id/baggage_btn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/baggage_btn_shape"
-                            app:srcCompat="@drawable/baggage_btn" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -197,6 +191,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageButton
+            android:id="@+id/baggage_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:background="@drawable/baggage_btn_shape"
+            android:padding="10dp"
+            app:srcCompat="@drawable/ic_zakryty_sunduk" />
     </RelativeLayout>
 
     <LinearLayout

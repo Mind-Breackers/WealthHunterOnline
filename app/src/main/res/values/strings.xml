@@ -16,6 +16,8 @@
     <string name="Hint_3" translatable="false">Выберите фигуру ,которая поможет вам в заполнении поля.</string>
     <string name="Hint_4" translatable="false">Попробуйте заполнить ваше первое поле.</string>
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- TODO: Remove or change this placeholder text -->
 
 
 </resources>

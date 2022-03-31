@@ -5,6 +5,7 @@ import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.crash.basic_menu.Achievements.Achivement_Item
+import com.example.crash.games.Block
 
 open class DataPlayMenu:ViewModel() {
     val nameP: MutableLiveData<String> by lazy {
@@ -49,6 +50,10 @@ open class DataPlayMenu:ViewModel() {
 
     val LifeBaggage:MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>()
+    }
+
+    val BlockInBaggage:MutableLiveData<Block>  by lazy {
+        MutableLiveData<Block>()
     }
 
 

@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/baggage_fragment"
+    android:id="@+id/baggage_second"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".games.Game_Play.Baggage.Baggage_Fragment">
+    tools:context=".games.Game_Play.Baggage.SecondListFragment">
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/fragment_adapter"
+    <RelativeLayout
+        android:id="@+id/rl_baggage_second"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="@drawable/baggage_rl">
 
+    </RelativeLayout>
 </FrameLayout>
