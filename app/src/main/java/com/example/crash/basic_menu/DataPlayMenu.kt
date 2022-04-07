@@ -48,13 +48,4 @@ open class DataPlayMenu:ViewModel() {
         MutableLiveData<View>()
     }
 
-    val LifeBaggage:MutableLiveData<Boolean> by lazy {
-        MutableLiveData<Boolean>()
-    }
-
-    val BlockInBaggage:MutableLiveData<Block>  by lazy {
-        MutableLiveData<Block>()
-    }
-
-
 }

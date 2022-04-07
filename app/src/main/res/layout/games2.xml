@@ -90,7 +90,7 @@
                         app:srcCompat="@drawable/ic_voda_vektor" />
 
                     <ImageView
-                        android:id="@+id/imageView4"
+                        android:id="@+id/tree"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -190,6 +190,14 @@
         android:id="@+id/rl_pool"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/musorka_svg2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/baggage_btn_shape"
+            android:padding="10dp"
+            android:src="@drawable/musorka" />
 
         <ImageButton
             android:id="@+id/baggage_btn"

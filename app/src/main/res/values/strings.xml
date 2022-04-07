@@ -11,10 +11,12 @@
     <string name="name2" translatable="false">Фамилия</string>
     <string name="name3" translatable="false">Отчество</string>
     <string name="done" translatable="false">Готово</string>
-    <string name="Hint_1" translatable="false">Приветствуем вас на обучении!Сейчас мы расскажем вам основные механики игры.</string>
-    <string name="Hint_2" translatable="false">Сначала выберите одну фигуру из пула котрую хотите разрушить.</string>
-    <string name="Hint_3" translatable="false">Выберите фигуру ,которая поможет вам в заполнении поля.</string>
-    <string name="Hint_4" translatable="false">Попробуйте заполнить ваше первое поле.</string>
+    <string name="Hint_0" translatable="false">Выберите фигуру,которая вам не понадобиться из пулла</string>
+    <string name="Hint_1" translatable="false">Привет.Впереди обучение механикам игры.</string>
+    <string name="Hint_2" translatable="false">Перетащи фигуру на поле</string>
+    <string name="Hint_3" translatable="false">Чтобы перевернуть фигуру нажми на нее</string>
+    <string name="Hint_4" translatable="false">Фигуру можно положить в рюкзак.</string>
+    <string name="Hint_5" translatable="false">Фигуру можно удалить.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <!-- TODO: Remove or change this placeholder text -->

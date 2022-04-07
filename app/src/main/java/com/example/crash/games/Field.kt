@@ -65,7 +65,7 @@ class Field(
         return true
     }
 
-    fun figureDetection(figure: Block): Boolean {
+    fun figureDetection(figure:Block): Boolean {
         var detective_field1 = arrayListOf<Point>()
         var detective_field2 = arrayListOf<Point>()
         var detective_field3 = arrayListOf<Point>()

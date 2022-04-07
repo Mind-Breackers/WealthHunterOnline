@@ -23,7 +23,7 @@ class PersonalAccount : AppCompatActivity() {
         val avatar = intent.getIntExtra("Img", 0)!!
         val name = intent.getStringExtra("Name")!!
 
-        if(name==""){
+        if(name=="rmpty"){
             openFrag(Train_game.newInstance(),bindingclass.menuHolder.id)
 
             bindingclass.viewPager2.visibility= View.GONE

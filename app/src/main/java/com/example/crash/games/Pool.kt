@@ -8,23 +8,26 @@ import android.widget.Button
 import android.widget.RelativeLayout
 import androidx.lifecycle.MutableLiveData
 import com.example.crash.R
+import okhttp3.internal.wait
 
 @SuppressLint("ClickableViewAccessibility")
 class Pool(private val parent: RelativeLayout,
                 private val blockList: ArrayList<Block>,
                 private val posX: Int,
-                private val posY: Int,
-                size: Int,) {
-    val actionI: MutableLiveData<Int> by lazy {
+                val posY: Int,
+           private val size: Int,) {
+    val actionPool: MutableLiveData<Int> by lazy {
         MutableLiveData<Int>()
     }
     val cellSize: Int = (size * 0.06).toInt()
     private val blocks: Array<Block?> = arrayOf(null, null, null, null, null, null)
-    private val colW = (size * 0.28).toInt()
+    private var colW = (size * 0.28).toInt()
     private var action = 2
+    private lateinit var btn:View
     val height=colW*2
+    private lateinit var bg:View
     init {
-        val bg = View(parent.context)
+        bg = View(parent.context)
         bg.setBackgroundResource(R.drawable.pool_rl)
         bg.setOnTouchListener { v, event -> if (event.action == MotionEvent.ACTION_DOWN) {
             val id = getBlockId(event.x.toInt(), event.y.toInt())
@@ -38,17 +41,19 @@ class Pool(private val parent: RelativeLayout,
                     blocks[id] = null
                 }
             }
-            actionI.value=action
+            actionPool.value=action
             action--
         }
             true
         }
+
         var params = RelativeLayout.LayoutParams(size, colW * 2)
         params.leftMargin = posX
         params.topMargin = posY
         parent.addView(bg, params)
 
-        val btn = Button(parent.context)
+
+        btn = Button(parent.context)
         btn.setBackgroundResource(R.drawable.update_btn)
         val btnAnim = RotateAnimation(0f, -360f,
             size * 0.08f, size * 0.08f)
@@ -69,6 +74,7 @@ class Pool(private val parent: RelativeLayout,
         params.topMargin = posY + (size * 0.17).toInt()
         parent.addView(btn, params)
 
+
         update()
     }
 
@@ -83,6 +89,25 @@ class Pool(private val parent: RelativeLayout,
             blocks[i] = bl
             bl.startCreateAnimation()
         }
+    }
+
+    fun clearBack(){
+        colW=(size * 0.33).toInt()
+        parent.removeView(bg)
+        parent.removeView(btn)
+        bg.setBackgroundResource(0)
+        bg.setOnTouchListener(null)
+        var params = RelativeLayout.LayoutParams(size, colW * 2)
+        params.leftMargin = posX
+        params.topMargin = posY
+        parent.addView(bg, params)
+        update()
+    }
+
+    fun destroy(){
+        parent.removeView(bg)
+        parent.removeView(btn)
+        blocks.forEach { it?.startDestroyAnimation(blockList) }
     }
 
     protected fun getBlockId(touchX: Int, touchY: Int): Int {

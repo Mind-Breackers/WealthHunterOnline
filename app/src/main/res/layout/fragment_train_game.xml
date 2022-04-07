@@ -2,49 +2,274 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fraim_train"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".basic_menu.train_game.Train_game">
 
-    <!-- TODO: Update blank fragment layout -->
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/first_screen"
+    <RelativeLayout
+        android:id="@+id/game_train"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:background="#632F17">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/screen"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        <RelativeLayout
+            android:id="@+id/Player1_train"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </RelativeLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_skills_train"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/LinLay_skills_train"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:foregroundGravity="bottom"
+                android:gravity="bottom"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="#451600"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/skills_left_player2_train"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical" >
+
+                        <ImageView
+                            android:id="@+id/tree_train_2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="20dp"
+                            android:visibility="invisible"
+                            app:srcCompat="@drawable/ic_zemlya_vektor" />
+
+                        <ImageView
+                            android:id="@+id/water_train_2"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="20dp"
+                            android:visibility="invisible"
+                            app:srcCompat="@drawable/ic_voda_vektor" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/skills_left_player1_train"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/water_train"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="10dp"
+                            android:visibility="invisible"
+                            app:srcCompat="@drawable/ic_voda_vektor" />
+
+                        <ImageView
+                            android:id="@+id/tree_train"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="0dp"
+                            android:layout_marginBottom="20dp"
+                            android:visibility="invisible"
+                            app:srcCompat="@drawable/ic_zemlya_vektor" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/field_train"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="#451600"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical" >
+
+                            <ImageView
+                                android:id="@+id/fire_train_2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="20dp"
+                                android:visibility="invisible"
+                                app:srcCompat="@drawable/ic_ogon_vektor" />
+
+                            <ImageView
+                                android:id="@+id/tuman_train_2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="20dp"
+                                android:visibility="invisible"
+                                app:srcCompat="@drawable/ic_tuman_vektor" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/skills_right_train"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:layout_marginTop="10dp"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/tuman_train"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginBottom="10dp"
+                                android:visibility="invisible"
+                                app:srcCompat="@drawable/ic_tuman_vektor" />
+
+                            <ImageView
+                                android:id="@+id/fire_train"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginBottom="20dp"
+                                android:visibility="invisible"
+                                app:srcCompat="@drawable/ic_ogon_vektor" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/ln_baggage_train"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="vertical">
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_pool_train"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/musorka_svg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/baggage_btn_shape"
+                android:padding="10dp"
+                android:src="@drawable/musorka" />
+
+            <ImageButton
+                android:id="@+id/baggage_btn_train"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:background="@drawable/baggage_btn_shape"
+                android:padding="10dp"
+                app:srcCompat="@drawable/ic_zakryty_sunduk" />
+        </RelativeLayout>
 
         <LinearLayout
-            android:id="@+id/lnF_train"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginBottom="200dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-            <RelativeLayout
-                android:id="@+id/field_train"
+            <FrameLayout
+                android:id="@+id/baggage_train"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="200dp"
+                android:layout_gravity="bottom"
+                android:visibility="visible">
 
-            </RelativeLayout>
-
+            </FrameLayout>
         </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/game_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/pool_rl"
+            android:elevation="20dp"
+            android:gravity="center"
+            android:padding="15dp"
+            android:text="@string/Hint_0"
+            android:textColor="#FFFFFF"
+            android:textColorLink="#F10C0C"
+            tools:targetApi="o" />
 
-    <FrameLayout
-        android:id="@+id/hints"
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/first_screen_train"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#451600"
+        android:gravity="center|left">
 
-    </FrameLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="250dp"
+            android:background="@drawable/pool_rl"
+            android:elevation="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/start_hint"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:padding="10dp"
+                android:text="@string/Hint_1"
+                android:textColor="#FFFFFF"
+                android:textSize="30sp" />
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </FrameLayout>
