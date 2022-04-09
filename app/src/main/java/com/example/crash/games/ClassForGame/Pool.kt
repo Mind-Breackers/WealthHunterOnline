@@ -1,4 +1,4 @@
-package com.example.crash.games
+package com.example.crash.games.ClassForGame
 
 import android.annotation.SuppressLint
 import android.view.MotionEvent
@@ -8,13 +8,12 @@ import android.widget.Button
 import android.widget.RelativeLayout
 import androidx.lifecycle.MutableLiveData
 import com.example.crash.R
-import okhttp3.internal.wait
 
 @SuppressLint("ClickableViewAccessibility")
 class Pool(private val parent: RelativeLayout,
-                private val blockList: ArrayList<Block>,
-                private val posX: Int,
-                val posY: Int,
+           private val blockList: ArrayList<Block>,
+           private val posX: Int,
+           val posY: Int,
            private val size: Int,) {
     val actionPool: MutableLiveData<Int> by lazy {
         MutableLiveData<Int>()
@@ -25,9 +24,9 @@ class Pool(private val parent: RelativeLayout,
     private var action = 2
     private lateinit var btn:View
     val height=colW*2
-    private lateinit var bg:View
+    private var bg:View = View(parent.context)
+
     init {
-        bg = View(parent.context)
         bg.setBackgroundResource(R.drawable.pool_rl)
         bg.setOnTouchListener { v, event -> if (event.action == MotionEvent.ACTION_DOWN) {
             val id = getBlockId(event.x.toInt(), event.y.toInt())

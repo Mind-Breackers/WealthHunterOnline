@@ -1,6 +1,6 @@
 package com.example.crash.SigInUp
 
-// some string for test commit from Sergey [delete this]
+// some string for test commit from   Sergey [delete this]
 
 import android.content.Intent
 import android.os.Bundle
@@ -63,16 +63,26 @@ class MainActivity : AppCompatActivity() {
         }
 
         sigUp = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            login = it.data?.getStringExtra(Constance.LOGINE)!!
-            password = it.data?.getStringExtra(Constance.PASSWORD)!!
-            name1 = it.data?.getStringExtra(Constance.NAME1)!!
-            name2 = it.data?.getStringExtra(Constance.NAME2)!!
-            name3 = it.data?.getStringExtra(Constance.NAME3)!!
-            avatar_img_id = it.data?.getIntExtra(Constance.AVATAR_ID, R.drawable.boy1)!!
 
-            bindingclass.imgavatar.visibility = View.INVISIBLE
-            val textinfo = "Аккаунт успешно создан"
-            bindingclass.tvibfo.text = textinfo
+            if (it.resultCode== RESULT_OK) {
+                login = it.data?.getStringExtra(Constance.LOGINE).toString()
+                password = it.data?.getStringExtra(Constance.PASSWORD).toString()
+                name1 = it.data?.getStringExtra(Constance.NAME1).toString()
+                name2 = it.data?.getStringExtra(Constance.NAME2).toString()
+                name3 = it.data?.getStringExtra(Constance.NAME3).toString()
+                avatar_img_id = it.data?.getIntExtra(Constance.AVATAR_ID, R.drawable.boy1)?.toInt()
+                    ?: R.drawable.boy1
+                Log.d("SigIn", "$login ,$password")
+
+
+                bindingclass.imgavatar.visibility = View.INVISIBLE
+                val textinfo = "Аккаунт успешно создан"
+                bindingclass.tvibfo.text = textinfo
+            }else{
+                bindingclass.imgavatar.visibility = View.INVISIBLE
+                val textinfo = "Аккаунт не создан"
+                bindingclass.tvibfo.text = textinfo
+            }
         }
     }
 
@@ -85,7 +95,6 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, SignInUp::class.java)
         intent.putExtra(Constance.SIGN_STATE, Constance.SIG_IN_STATE)
         sigIn?.launch(intent)
-
     }
 
     fun onClicksigup(view: View) {

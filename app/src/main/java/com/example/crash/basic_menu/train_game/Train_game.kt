@@ -1,13 +1,6 @@
 package com.example.crash.basic_menu.train_game
 
-import android.R.attr.bitmap
 import android.annotation.SuppressLint
-import android.app.ActionBar
-import android.content.res.Resources
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -19,9 +12,6 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.core.graphics.drawable.toDrawable
-import androidx.core.view.allViews
-import androidx.core.view.marginTop
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LifecycleOwner
@@ -29,12 +19,11 @@ import com.example.crash.R
 import com.example.crash.basic_menu.DataPlayMenu
 import com.example.crash.constance.Constance
 import com.example.crash.databinding.FragmentTrainGameBinding
-import com.example.crash.games.Block
-import com.example.crash.games.Field
+import com.example.crash.games.ClassForGame.Block
+import com.example.crash.games.ClassForGame.Field
 import com.example.crash.games.Game_Play.Baggage.BaggageFragment
 import com.example.crash.games.Game_Play.DataGames
-import com.example.crash.games.Pool
-import kotlinx.coroutines.IO_PARALLELISM_PROPERTY_NAME
+import com.example.crash.games.ClassForGame.Pool
 
 
 class Train_game : Fragment() {
@@ -306,7 +295,7 @@ class Train_game : Fragment() {
 
 
                         //неплохое решение тут отрисовка поля от пула идет можно везде так сделать
-                        var fieldEnemy=Field(binding.gameTrain,10,trainfield.cellsSize,displaywidth / 2,trainfield.blocksPool.posY/2,trainfield.blocksPool.posY,trainfield.fieldwidth)
+                        var fieldEnemy= Field(binding.gameTrain,10,trainfield.cellsSize,displaywidth / 2,trainfield.blocksPool.posY/2,trainfield.blocksPool.posY,trainfield.fieldwidth)
                         trainfield.blocksPool.destroy()
 
                         binding.gameHint.text=""

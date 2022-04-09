@@ -1,4 +1,4 @@
-package com.example.crash.games
+package com.example.crash.games.ClassForGame
 
 import android.os.Handler
 import android.os.Looper
@@ -10,15 +10,15 @@ import android.widget.RelativeLayout
 import com.example.crash.R
 import kotlin.random.Random
 
-open class Block(private var parent: RelativeLayout, posX: Int, posY: Int,private var size: Int,
-            copy: Block? =null,block1x1:Boolean=false) {
+open class Block(private var parent: RelativeLayout, posX: Int, posY: Int, private var size: Int,
+                 copy: Block? =null, block1x1:Boolean=false) {
 
     val cells = ArrayList<ImageView>()
     var width: Int
     var height: Int
     var coordinatsBlock = arrayListOf<Point>()
     protected var lockAnimated = 0
-    lateinit var cellsPos :RandomCells
+    lateinit var cellsPos : RandomCells
     var detective = false
     var cx: Int // координаты центра
     var cy: Int // координаты центра

@@ -1,4 +1,4 @@
-package com.example.crash.games
+package com.example.crash.games.ClassForGame
 
 import kotlin.random.Random
 

@@ -4,7 +4,6 @@ package com.example.crash.games.Game_Play
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
@@ -14,10 +13,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.crash.R
 import com.example.crash.databinding.Games2Binding
-import com.example.crash.games.Block
-import com.example.crash.games.Field
+import com.example.crash.games.ClassForGame.Block
+import com.example.crash.games.ClassForGame.Field
 import com.example.crash.games.Game_Play.Baggage.BaggageFragment
-import com.example.crash.games.Pool
 
 
 class Games : AppCompatActivity() {

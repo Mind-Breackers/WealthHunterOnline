@@ -9,9 +9,9 @@ import androidx.core.view.marginLeft
 import androidx.core.view.marginTop
 import androidx.lifecycle.MutableLiveData
 import com.example.crash.R
-import com.example.crash.games.Block
-import com.example.crash.games.Field
-import com.example.crash.games.Pool
+import com.example.crash.games.ClassForGame.Block
+import com.example.crash.games.ClassForGame.Field
+import com.example.crash.games.ClassForGame.Pool
 
 @SuppressLint("ClickableViewAccessibility")
 abstract class AbstractPlayField(
@@ -184,7 +184,7 @@ abstract class AbstractPlayField(
         }
     }
 
-   private fun checkBaggageBtn(baggageSize:Int, capturedBlock:Block?){
+   private fun checkBaggageBtn(baggageSize:Int, capturedBlock: Block?){
         if(baggageSize>0){
             if(capturedBlock==null){
                 baggageBtn.setImageResource(R.drawable.ic_zakryty_sunduk)

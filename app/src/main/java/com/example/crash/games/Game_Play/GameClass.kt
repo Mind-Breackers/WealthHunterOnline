@@ -4,9 +4,8 @@ import android.annotation.SuppressLint
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.RelativeLayout
-import com.example.crash.games.Block
-import com.example.crash.games.BlockTree1x1
-import com.example.crash.games.Field
+import com.example.crash.games.ClassForGame.Block
+import com.example.crash.games.ClassForGame.Field
 
 @SuppressLint("ClickableViewAccessibility")
  class GameClass(

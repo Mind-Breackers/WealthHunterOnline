@@ -2,7 +2,7 @@ package com.example.crash.games.Game_Play
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.crash.games.Block
+import com.example.crash.games.ClassForGame.Block
 
 open class DataGames: ViewModel(){
     val LifeBaggage: MutableLiveData<Boolean> by lazy {

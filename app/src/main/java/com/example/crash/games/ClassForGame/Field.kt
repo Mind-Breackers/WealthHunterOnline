@@ -1,6 +1,5 @@
-package com.example.crash.games
+package com.example.crash.games.ClassForGame
 
-import android.util.Log
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import com.example.crash.R
@@ -27,10 +26,12 @@ class Field(
         val genCells = RandomCells(size, 11, 7)
         for (cell in genCells.cells) {
             println("${cell[0]} ${cell[1]}")
-            coordinats.add(Point(
+            coordinats.add(
+                Point(
                 cx + cell[0] * cellSize - (genCells.left + genCells.right + 1) * cellSize / 2,
                 cy + cell[1] * cellSize - (genCells.top + genCells.bot + 1) * cellSize / 2
-            )) }
+            )
+            ) }
 
         for (i in 0 until coordinats.size) {
             val img = ImageView(parent.context)
@@ -51,26 +52,26 @@ class Field(
     }
 
     fun figureOutDetection(figure: Block): Boolean {
-        Log.d("Field1","${detective_coordinats.size}")
+       // Log.d("Field1","${detective_coordinats.size}")
         if (figure.detective) {
             for (block in figure.coordinatsBlock) {
-                Log.d("Field1","${block.x}+${block.y}")
+                //Log.d("Field1","${block.x}+${block.y}")
                 if (block.getDetectivePos(detective_coordinats) != -1) {
                     detective_coordinats.removeAt(block.getDetectivePos(detective_coordinats))
                 }
             }
             figure.detective = false
         }
-        Log.d("Field1","${detective_coordinats.size}")
+       // Log.d("Field1","${detective_coordinats.size}")
         return true
     }
 
-    fun figureDetection(figure:Block): Boolean {
+    fun figureDetection(figure: Block): Boolean {
         var detective_field1 = arrayListOf<Point>()
         var detective_field2 = arrayListOf<Point>()
         var detective_field3 = arrayListOf<Point>()
         var detective_field4 = arrayListOf<Point>()
-        println("start")
+        //println("start")
         var flag_side = 0;
         for (block in figure.coordinatsBlock) {
             for (field in coordinats) {

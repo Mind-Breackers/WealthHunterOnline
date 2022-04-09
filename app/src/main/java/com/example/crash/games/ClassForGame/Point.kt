@@ -1,4 +1,4 @@
-package com.example.crash.games
+package com.example.crash.games.ClassForGame
 
 import kotlin.collections.ArrayList
 
@@ -13,7 +13,7 @@ class Point(var x: Int = 0, var y: Int = 0) {
         return true
     }
 
-    fun inDetectivePos(array: ArrayList<Point>,coordinate_offsetx :Int =0,coordinate_offsety:Int =0,fieldSize:Int): Boolean {
+    fun inDetectivePos(array: ArrayList<Point>, coordinate_offsetx :Int =0, coordinate_offsety:Int =0, fieldSize:Int): Boolean {
         for (field in array) {
             if (this.y +coordinate_offsety >= field.y && this.y + coordinate_offsety < field.y + fieldSize
                 && this.x +coordinate_offsetx < field.x + fieldSize && this.x + coordinate_offsetx >= field.x

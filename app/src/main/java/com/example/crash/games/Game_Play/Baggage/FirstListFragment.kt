@@ -1,7 +1,6 @@
 package com.example.crash.games.Game_Play.Baggage
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -14,7 +13,7 @@ import androidx.core.view.marginTop
 import androidx.fragment.app.activityViewModels
 import com.example.crash.R
 import com.example.crash.databinding.FragmentFirstListBinding
-import com.example.crash.games.Block
+import com.example.crash.games.ClassForGame.Block
 import com.example.crash.games.Game_Play.DataGames
 
 class FirstListFragment : Fragment() {
