@@ -18,11 +18,10 @@ class Pool(private val parent: RelativeLayout,
     val actionPool: MutableLiveData<Int> by lazy {
         MutableLiveData<Int>()
     }
-    val cellSize: Int = (size * 0.06).toInt()
+    val cellSize: Int = (size * 0.074).toInt()
     private val blocks: Array<Block?> = arrayOf(null, null, null, null, null, null)
-    private var colW = (size * 0.28).toInt()
+    private var colW = size / 3
     private var action = 2
-    private lateinit var btn:View
     val height=colW*2
     private var bg:View = View(parent.context)
 
@@ -39,6 +38,7 @@ class Pool(private val parent: RelativeLayout,
                     blocks[id]?.startMoveAnimation(if (id < 3) colW * 2 else colW)
                     blocks[id] = null
                 }
+                0 -> update()
             }
             actionPool.value=action
             action--
@@ -51,34 +51,11 @@ class Pool(private val parent: RelativeLayout,
         params.topMargin = posY
         parent.addView(bg, params)
 
-
-        btn = Button(parent.context)
-        btn.setBackgroundResource(R.drawable.update_btn)
-        val btnAnim = RotateAnimation(0f, -360f,
-            size * 0.08f, size * 0.08f)
-        btnAnim.duration = 700
-        btn.setOnTouchListener {view, event ->
-            when (event.action) {
-                MotionEvent.ACTION_DOWN -> view.setBackgroundResource(R.drawable.update_btn)
-                MotionEvent.ACTION_UP -> {
-                    view.setBackgroundResource(R.drawable.update_btn)
-                    view.startAnimation(btnAnim)
-                    update()
-                }
-            }
-            true
-        }
-        params = RelativeLayout.LayoutParams((size * 0.16).toInt(), (size * 0.16).toInt())
-        params.leftMargin = posX + (size * 0.825).toInt()
-        params.topMargin = posY + (size * 0.17).toInt()
-        parent.addView(btn, params)
-
-
         update()
     }
 
-    protected fun update() {
-        action = 2
+    private fun update() {
+        action = 3
         for (i in blocks.indices) if (blocks[i] != null) blocks[i]?.destroy(blockList)
         for (i in 0..5) {
             val bl = Block(parent, posX, posY, cellSize)
@@ -93,7 +70,6 @@ class Pool(private val parent: RelativeLayout,
     fun clearBack(){
         colW=(size * 0.33).toInt()
         parent.removeView(bg)
-        parent.removeView(btn)
         bg.setBackgroundResource(0)
         bg.setOnTouchListener(null)
         var params = RelativeLayout.LayoutParams(size, colW * 2)
@@ -105,11 +81,10 @@ class Pool(private val parent: RelativeLayout,
 
     fun destroy(){
         parent.removeView(bg)
-        parent.removeView(btn)
         blocks.forEach { it?.startDestroyAnimation(blockList) }
     }
 
-    protected fun getBlockId(touchX: Int, touchY: Int): Int {
+    private fun getBlockId(touchX: Int, touchY: Int): Int {
         return 3 * (touchY / colW) + touchX / colW
     }
 }

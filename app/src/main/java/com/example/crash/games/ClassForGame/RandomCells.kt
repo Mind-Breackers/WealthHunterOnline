@@ -16,7 +16,6 @@ class RandomCells (count: Int,
         private set
 
     init {
-        println("##############################")
         assert(max_width * max_height >= count)
 
         val pool = arrayListOf(arrayOf(-1, 0), arrayOf(0, -1), arrayOf(1, 0), arrayOf(0, 1))
