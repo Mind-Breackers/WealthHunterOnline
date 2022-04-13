@@ -1,4 +1,4 @@
-package com.example.crash.games.Game_Play
+package com.example.crash.games.ClassForGame
 
 import android.annotation.SuppressLint
 import android.view.MotionEvent
@@ -9,9 +9,7 @@ import androidx.core.view.marginLeft
 import androidx.core.view.marginTop
 import androidx.lifecycle.MutableLiveData
 import com.example.crash.R
-import com.example.crash.games.ClassForGame.Block
-import com.example.crash.games.ClassForGame.Field
-import com.example.crash.games.ClassForGame.Pool
+import com.example.crash.games.Game_Play.DataGames
 
 @SuppressLint("ClickableViewAccessibility")
 abstract class AbstractPlayField(
@@ -33,15 +31,15 @@ abstract class AbstractPlayField(
     val cellsSize=blocksPool.cellSize
     val fieldheight = (displayheight - blocksPool.height) / 2 + 50
     val fieldwidth = displaywidth - (displaywidth / 6) * 2
-    protected val field1Centerheight = displayheight / 2 + displayheight / 3
-    protected val field1Centerwidth = displaywidth / 2
+    val field1Centerheight = displayheight-blocksPool.posY/2
+    val field1Centerwidth = displaywidth / 2
     protected val field2Centerheight = displayheight / 4
     protected val field2Centerwidth = displaywidth / 2
     private var downX = 0
     private var downY = 0
     private var lastX = 0
-    private lateinit var  playField: Field
-    protected lateinit var enemyField: Field
+    lateinit var  playField: Field   //сделать приватной
+     lateinit var enemyField: Field
     private var capturedBlock: Block? = null
     private var lastY = 0
     private var action=3
@@ -134,7 +132,7 @@ abstract class AbstractPlayField(
 
                             } else {
                                 //МУСОРКА---------------------------------------------------------------
-                                if(capturedBlock!!.cx in 0..musorka.marginLeft+musorka.width*2
+                                if(capturedBlock!!.cx in 0..musorka.marginLeft+musorka.width
                                     && capturedBlock!!.cy in musorka.marginTop-blocksPool.cellSize..musorka.marginTop+musorka.height)
                                 {
                                     capturedBlock?.destroy(blocks)

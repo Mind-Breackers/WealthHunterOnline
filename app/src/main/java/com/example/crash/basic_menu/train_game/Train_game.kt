@@ -234,7 +234,6 @@ class Train_game : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun sendHint(number: Int) {
-        //сделать action и чекать какая подсказка должна быть в будущем ну еще бы как-то оограничить движения в обучении
 
         var txtSize = 0
             when (number) {

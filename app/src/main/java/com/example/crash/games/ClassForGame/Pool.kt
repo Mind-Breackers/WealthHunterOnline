@@ -1,10 +1,9 @@
 package com.example.crash.games.ClassForGame
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
-import android.view.animation.RotateAnimation
-import android.widget.Button
 import android.widget.RelativeLayout
 import androidx.lifecycle.MutableLiveData
 import com.example.crash.R
@@ -18,10 +17,19 @@ class Pool(private val parent: RelativeLayout,
     val actionPool: MutableLiveData<Int> by lazy {
         MutableLiveData<Int>()
     }
-    val cellSize: Int = (size * 0.074).toInt()
+    val cellSize: Int = (size * 0.060).toInt()
     private val blocks: Array<Block?> = arrayOf(null, null, null, null, null, null)
-    private var colW = size / 3
+    private var colW = size /3
     private var action = 2
+    val tumanRerollOut: MutableLiveData<Boolean> by lazy {
+        MutableLiveData<Boolean>()
+    }
+    var tumanRerollIn=false
+    var waterRerollIn=false
+    val waterRerollOut: MutableLiveData<Boolean> by lazy {
+        MutableLiveData<Boolean>()
+    }
+    var rerollIndex=0
     val height=colW*2
     private var bg:View = View(parent.context)
 
@@ -33,12 +41,78 @@ class Pool(private val parent: RelativeLayout,
                 2 -> {
                     blocks[id]?.startDestroyAnimation(blockList)
                     blocks[id] = null
+                    //---------для способности туман
+                    var flagNullMas=true
+                    for (block in blocks){
+                        if(block!=null){
+                            flagNullMas=false
+                            break
+                        }
+                    }
+                    if (flagNullMas){
+                        waterRerollOut.value=true
+                        waterRerollIn = false
+                        //---туман перед каждым рероллом ставить надо этот блок
+                        if(!tumanRerollIn) {
+                            rerollIndex++
+                            if (rerollIndex == 5) {
+                                tumanRerollOut.value = true
+                                rerollIndex = 0
+                            }
+                        }
+                        //------------------------------------------------------------
+                        update()
+                        action=3
+                    }
+                    //---------------------------
                 }
                 1 -> {
                     blocks[id]?.startMoveAnimation(if (id < 3) colW * 2 else colW)
                     blocks[id] = null
+                    //---------для способности туман
+                    var flagNullMas=true
+                    for (block in blocks){
+                        if(block!=null){
+                            flagNullMas=false
+                            break
+                        }
+                    }
+                    if (flagNullMas){
+                        waterRerollOut.value=true
+                        waterRerollIn = false
+                        //---туман перед каждым рероллом ставить надо этот блок
+                        if(!tumanRerollIn) {
+                            rerollIndex++
+                            if (rerollIndex == 5) {
+                                tumanRerollOut.value = true
+                                rerollIndex = 0
+                            }
+                        }
+                        //------------------------------------------------------------
+                        update()
+                        action=3
+                    }
+                    //---------------------------
                 }
-                0 -> update()
+                0 -> {
+                    if(!waterRerollIn) {
+                        //---туман перед каждым рероллом ставить надо этот блок
+                        if(!tumanRerollIn) {
+                            rerollIndex++
+                            if (rerollIndex == 5) {
+                                tumanRerollOut.value = true
+                                rerollIndex = 0
+                            }
+                        }
+                        //------------------------------------------------------------
+                        update()
+                    }
+                    else{
+                        blocks[id]?.startDestroyAnimation(blockList)
+                        blocks[id] = null
+                        action=2
+                    }
+                }
             }
             actionPool.value=action
             action--

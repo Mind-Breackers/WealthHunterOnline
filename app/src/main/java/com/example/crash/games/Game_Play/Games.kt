@@ -13,8 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.crash.R
 import com.example.crash.databinding.Games2Binding
-import com.example.crash.games.ClassForGame.Block
-import com.example.crash.games.ClassForGame.Field
+import com.example.crash.games.ClassForGame.*
 import com.example.crash.games.Game_Play.Baggage.BaggageFragment
 
 
@@ -60,8 +59,9 @@ class Games : AppCompatActivity() {
                 dataGames,
                 size,
                 bindingclass.musorkaSvg2,
-                bindingclass.tree
             )
+
+            SkillsTree(bindingclass.rlGames,bindingclass.tree,game)
 
             val paramsbtn = bindingclass.baggageBtn.layoutParams as RelativeLayout.LayoutParams
             paramsbtn.leftMargin =
@@ -84,12 +84,12 @@ class Games : AppCompatActivity() {
 
             val params = bindingclass.skillsLeftPlayer1.layoutParams as LinearLayout.LayoutParams
             params.width = (displaywidth - game.fieldwidth) / 2
-            params.height = game.fieldheight
+            params.height = displayheight-(game.blocksPool.posY+game.blocksPool.height)
             bindingclass.skillsLeftPlayer1.layoutParams = params
 
             val params1 = bindingclass.skillsRight.layoutParams as LinearLayout.LayoutParams
             params1.width = (displaywidth - game.fieldwidth) / 2
-            params1.height = game.fieldheight - bindingclass.baggageBtn.height
+            params1.height = displayheight-(game.blocksPool.posY+game.blocksPool.height) - bindingclass.baggageBtn.height
             bindingclass.skillsRight.layoutParams = params1
 
 
@@ -98,6 +98,24 @@ class Games : AppCompatActivity() {
             params2.height = game.fieldheight
             bindingclass.field.layoutParams = params2
 
+            //Туман
+            bindingclass.smoke.layoutParams=params2
+            val tuman=SkillsTuman(bindingclass.tuman,game,bindingclass.smoke)
+            game.blocksPool.tumanRerollOut.observe(this,{
+                tuman.flagSkiils=true
+                game.blocksPool.tumanRerollIn=true
+                bindingclass.smoke.visibility = View.INVISIBLE
+            })
+            ///-----------------------------------
+
+            //Вода
+            val water=SkillsWater(bindingclass.water,game)
+            game.blocksPool.waterRerollOut.observe(this,{
+                water.action=0
+            })
+            //----------------------------------
+
+            val fire=SkillsFire(bindingclass.fire,bindingclass.deleteRelative,game)
 
             dataGames.BlockOutBaggage.observe(this, {
                 game.baggaeBlock.removeLast()
