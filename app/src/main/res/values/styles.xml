@@ -8,4 +8,101 @@
     <style name="BottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="android:backgroundDimAmount">0</item>
     </style>
+
+    <style name="sigin_dopfunction">
+
+        <item name="android:textSize">
+            14sp
+        </item>
+
+        <item name="android:textColor">
+            #A09F99
+        </item>
+
+    </style>
+
+
+    <style name="hello_style_sigin">
+
+        <item name="android:textSize">
+            37sp
+        </item>
+
+        <item name="android:textColor">
+            #FFFFFF
+        </item>
+
+    </style>
+
+    <style name="dop_info_sigin">
+
+        <item name="android:textSize">
+            16sp
+        </item>
+
+        <item name="android:textColor">
+            #8D5034
+        </item>
+
+    </style>
+
+    <style name="reg_sigin">
+
+        <item name="android:textSize">
+            16sp
+        </item>
+
+        <item name="android:letterSpacing">
+            0.01
+        </item>
+
+        <item name="android:textColor">
+            #D8D8DD
+        </item>
+
+    </style>
+
+    <style name="reg_sigin_click">
+
+        <item name="android:textSize">
+            16sp
+        </item>
+
+        <item name="android:letterSpacing">
+            0.01
+        </item>
+
+        <item name="android:textColor">#A63C0C</item>
+
+    </style>
+
+    <style name="log_password_sigin">
+
+        <item name="android:textSize">
+            16sp
+        </item>
+
+        <item name="android:textColor">
+            #FFFFFF
+        </item>
+
+    </style>
+
+    <style name="switch_sigin" parent="Theme.AppCompat.Light">
+        <!-- активное состояние (30% прозрачности для фона) -->
+        <item name="colorControlActivated">#4D0DEA33</item>
+
+        <!-- неактивное состояние ползунка -->
+        <item name="colorSwitchThumbNormal">@color/white</item>
+
+        <!-- цвет дорожки для неактивного состояния (30% прозрачности) -->
+        <item name="android:colorForeground">#A09F99</item>
+
+        <item name="trackTint">#A09F99</item>
+    </style>
+
+
+    <style name="splash_screen" parent="Theme.AppCompat.Light.NoActionBar">
+            <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
 </resources>

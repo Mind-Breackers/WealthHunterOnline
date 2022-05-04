@@ -8,6 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="textColorHint">#F40202</color>
+    <color name="textColorHintTrue">#857474</color>
     <color name="light_blue_600">#FF039BE5</color>
     <color name="light_blue_900">#FF01579B</color>
     <color name="light_blue_A200">#FF40C4FF</color>
@@ -15,4 +16,6 @@
     <color name="Pool_and_baggage">#8D5034</color>
     <color name="black_overlay">#66000000</color>
     <color name="Menu">#511E06</color>
+    <color name="sig_in_up">#451600</color>
+    <color name="gray">#D8D8DD</color>
 </resources>

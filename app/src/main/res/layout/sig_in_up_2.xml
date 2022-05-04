@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/sig_in_up">
+
+
+    <TextView
+        android:id="@+id/email_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Email_sigin"
+        android:textAppearance="@style/log_password_sigin"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/email_input"
+        app:layout_constraintStart_toStartOf="@+id/email_input"
+        app:layout_constraintTop_toBottomOf="@+id/password_input" />
+
+    <EditText
+        android:id="@+id/email_input"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/sig_in_up_shape"
+        android:ems="10"
+        android:hint="@string/input_sig_in_up"
+        android:inputType="textPersonName"
+        android:padding="15dp"
+        android:textAlignment="viewStart"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/password_input"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/password_input"
+        app:layout_constraintTop_toBottomOf="@+id/password_input" />
+
+    <TextView
+        android:id="@+id/dopfunction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="top"
+        android:lineSpacingExtra="5sp"
+        android:text="@string/Forgot_password"
+        android:textAppearance="@style/sigin_dopfunction"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/password_input"
+        app:layout_constraintTop_toBottomOf="@+id/email_input" />
+
+    <TextView
+        android:id="@+id/hello_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="84dp"
+        android:gravity="center_horizontal|top"
+        android:text="@string/hello_text_sigin"
+        android:textAppearance="@style/hello_style_sigin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/dop_info_sigin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal|top"
+        android:lineSpacingExtra="3sp"
+        android:text="@string/dop_info_sigin"
+        android:textAppearance="@style/dop_info_sigin"
+        android:translationY="-1.43sp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/hello_text"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/hello_text"
+        app:layout_constraintTop_toBottomOf="@+id/hello_text" />
+
+    <EditText
+        android:id="@+id/login_input"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/sig_in_up_shape"
+        android:ems="10"
+        android:hint="@string/input_sig_in_up"
+        android:inputType="textPersonName"
+        android:padding="15dp"
+        android:textAlignment="viewStart"
+        android:textColorHint="#857474"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dop_info_sigin" />
+
+    <EditText
+        android:id="@+id/password_input"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/sig_in_up_shape"
+        android:ems="10"
+        android:hint="@string/input_sig_in_up"
+        android:inputType="textPassword"
+        android:padding="15dp"
+        android:textColorHint="#857474"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/login_input"
+        app:layout_constraintStart_toStartOf="@+id/login_input"
+        app:layout_constraintTop_toBottomOf="@+id/login_input" />
+
+
+    <Button
+        android:id="@+id/btn_sig_in"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/Pool_and_baggage"
+        android:onClick="btnSigIn"
+        android:padding="15dp"
+        android:text="@string/btn_sig_in_up"
+        app:cornerRadius="6dp"
+        app:layout_constraintEnd_toEndOf="@+id/password_input"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/password_input"
+        app:layout_constraintTop_toBottomOf="@+id/dopfunction" />
+
+    <TextView
+        android:id="@+id/login_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="@string/Email_sigin"
+        android:textAppearance="@style/log_password_sigin"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/login_input"
+        app:layout_constraintStart_toStartOf="@+id/login_input" />
+
+    <TextView
+        android:id="@+id/password_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/password_sigin"
+        android:textAppearance="@style/log_password_sigin"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/password_input"
+        app:layout_constraintStart_toStartOf="@+id/password_input"
+        app:layout_constraintTop_toBottomOf="@+id/login_input" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/No_acc_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginBottom="16dp"
+            android:lineSpacingExtra="7sp"
+            android:text="@string/No_acc_sigin"
+            android:textAppearance="@style/reg_sigin" />
+
+        <TextView
+            android:id="@+id/reg_click"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:paddingLeft="8dp"
+            android:text="@string/reg_click_sigin"
+            android:textAppearance="@style/reg_sigin_click" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/googlebtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="52dp"
+        android:text="Button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_sig_in" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

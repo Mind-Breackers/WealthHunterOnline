@@ -23,28 +23,16 @@ open class DataPlayMenu:ViewModel() {
         MutableLiveData<Bitmap>()
     }
 
-    val TrainScrinshot:MutableLiveData<Bitmap> by lazy {
-        MutableLiveData<Bitmap>()
-    }
-
-    val activeHints:MutableLiveData<Boolean> by lazy {
-        MutableLiveData<Boolean>()
-    }
-
-    val RightLeft:MutableLiveData<Int> by lazy {
-        MutableLiveData<Int>()
-    }
-
-    val HintString:MutableLiveData<String> by lazy {
-        MutableLiveData<String>()
-    }
-
     val activeMenu:MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>()
     }
 
     val active:MutableLiveData<View> by lazy {
         MutableLiveData<View>()
+    }
+
+    val authResult:MutableLiveData<Boolean> by lazy {
+        MutableLiveData<Boolean>()
     }
 
 }

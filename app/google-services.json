@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "912809805644",
+    "firebase_url": "https://wealthhunter-2d3e0-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "wealthhunter-2d3e0",
+    "storage_bucket": "wealthhunter-2d3e0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:912809805644:android:943d46800137f36bf971e9",
+        "android_client_info": {
+          "package_name": "com.example.crash"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "912809805644-o0nlll37fnd4jrota6l3anbn9vlja1id.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.crash",
+            "certificate_hash": "28027d788c80c4e6b943f01b01c55260a7afc875"
+          }a
+        },
+        {
+          "client_id": "912809805644-ott7anaovkhh4nt4l08nlglop71qb7ja.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyW0EWxANKRK7omlIwJXwou1-TcXyC0Tg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "912809805644-ott7anaovkhh4nt4l08nlglop71qb7ja.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

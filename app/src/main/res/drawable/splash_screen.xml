@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/sig_in_up" />
+    <item android:drawable="@drawable/splash_screen_img" android:gravity="center">
+    </item>
+</layer-list>

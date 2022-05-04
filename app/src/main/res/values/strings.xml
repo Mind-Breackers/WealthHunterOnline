@@ -19,6 +19,17 @@
     <string name="Hint_5" translatable="false">Фигуру можно удалить.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_text_sigin">Привет, игрок!</string>
+    <string name="dop_info_sigin">Чтобы сохранять накопленный опыт нужно войти в аккаунт.</string>
+    <string name="remember">Запомнить меня</string>
+    <string name="input_sig_in_up">Ввести</string>
+    <string name="btn_sig_in_up">Войти</string>
+    <string name="Forgot_password">Забыли пароль?</string>
+    <string name="login_sig_in">Логин</string>
+    <string name="password_sigin">Пароль</string>
+    <string name="Email_sigin">Почта</string>
+    <string name="No_acc_sigin">Нет аккаунта?</string>
+    <string name="reg_click_sigin">Зарегистрироваться</string>
     <!-- TODO: Remove or change this placeholder text -->
 
 

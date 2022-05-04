@@ -3,24 +3,26 @@
     package="com.example.crash">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:usesCleartextTraffic="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:theme="@style/Theme.crash"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".sigInUp.main.SplashScreen" android:theme="@style/splash_screen" android:exported="true">
 
-        android:theme="@style/Theme.crash">
-        <activity android:name=".games.Game_Play.Games" ></activity>
-        <activity android:name=".SigInUp.SignInUp" />
-        <activity android:name=".SigInUp.MainActivity"
-            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".games.Game_Play.Games" />
+        <activity
+            android:name=".sigInUp.main.MainActivity">
         </activity>
         <activity android:name=".basic_menu.PersonalAccount" />
     </application>
