@@ -24,6 +24,7 @@ import com.example.crash.games.ClassForGame.Field
 import com.example.crash.games.Game_Play.Baggage.BaggageFragment
 import com.example.crash.games.Game_Play.DataGames
 import com.example.crash.games.ClassForGame.Pool
+import java.lang.Exception
 
 
 class Train_game : Fragment() {
@@ -152,9 +153,15 @@ class Train_game : Fragment() {
 
 
             dataGames.BlockOutBaggage.observe(activity as LifecycleOwner, {
-                trainfield.baggaeBlock.removeLast()
-                val bl = Block(binding.rlPoolTrain, field1Centerwidth, field1Centerheight, 50, it)
-                trainfield.blocks.add(bl)
+                try {
+                    trainfield.baggaeBlock?.removeLast()
+                    val bl =
+                        Block(binding.rlPoolTrain, field1Centerwidth, field1Centerheight, 50, it)
+                    trainfield.blocks.add(bl)
+                }
+                catch (e:Exception){
+
+                }
             })
 
             binding.baggageBtnTrain.setOnClickListener {
@@ -290,10 +297,6 @@ class Train_game : Fragment() {
                         ///победа
                         flagAction[number-1]=(false)
                         action=1
-                        //binding.gameHint.visibility=View.GONE
-
-
-                        //неплохое решение тут отрисовка поля от пула идет можно везде так сделать
                         var fieldEnemy= Field(binding.gameTrain,10,trainfield.cellsSize,displaywidth / 2,trainfield.blocksPool.posY/2,trainfield.blocksPool.posY,trainfield.fieldwidth)
                         trainfield.blocksPool.destroy()
 
@@ -359,6 +362,10 @@ class Train_game : Fragment() {
         binding.gameTrain.setOnTouchListener(null)
         binding.gameTrain.setOnClickListener {
             if(action==hintsRulsString.size){
+                binding.fraimTrain.removeAllViews()
+                dataPlayMenu.activeMenu.value = true
+                dataGames.BlockOutBaggage.removeObservers(activity as LifecycleOwner)
+                activity?.supportFragmentManager?.beginTransaction()?.remove(this)
                 onDestroy()
             }
             else {

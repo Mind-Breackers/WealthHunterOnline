@@ -10,26 +10,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/Avatar"
-            android:layout_width="42dp"
-            android:layout_height="42dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:src="@drawable/boy1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/Name"
+        <ImageButton
+            android:id="@+id/bquestion"
             android:layout_width="wrap_content"
-            android:layout_height="19dp"
-            android:layout_marginStart="24dp"
-            android:textColor="#E1EAFA"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/Avatar"
-            app:layout_constraintStart_toEndOf="@+id/Avatar"
-            app:layout_constraintTop_toTopOf="@+id/Avatar" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="10dp"
+            android:background="#00774545"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_question" />
 
         <LinearLayout
             android:id="@+id/linearLayout2"
@@ -42,14 +32,14 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.839">
+            app:layout_constraintVertical_bias="0.53">
 
             <LinearLayout
                 android:id="@+id/lnFields"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="100dp"
-                android:layout_marginRight="100dp"
+                android:layout_marginLeft="80dp"
+                android:layout_marginRight="80dp"
                 android:orientation="vertical">
 
                 <RelativeLayout
@@ -63,59 +53,57 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="horizontal">
+                android:layout_marginTop="32dp"
+                android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/but_eazy"
-                    android:layout_width="38dp"
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="24dp"
-                    android:backgroundTint="#357804"
-                    app:cornerRadius="80dp" />
-
-                <Button
-                    android:id="@+id/but_normal"
-                    android:layout_width="38dp"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="#A69108"
-                    app:cornerRadius="80dp" />
-
-                <Button
-                    android:id="@+id/bt_hard"
-                    android:layout_width="38dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:backgroundTint="#8C1014"
                     android:gravity="center"
-                    app:cornerRadius="80dp" />
-
+                    android:text="Пошли играть"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
                 android:orientation="vertical">
 
                 <Button
                     android:id="@+id/bplay"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Play"
-                    app:cornerRadius="20dp" />
+                    android:layout_height="55dp"
+                    android:backgroundTint="@color/Pool_and_baggage"
+                    android:text="@string/button_Play"
+                    app:cornerRadius="6dp" />
             </LinearLayout>
         </LinearLayout>
 
-        <Button
-            android:id="@+id/exit"
+        <ImageButton
+            android:id="@+id/backbutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.931"
-            app:layout_constraintStart_toEndOf="@+id/Name"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_margin="10dp"
+            android:background="#00FFFFFF"
+            android:src="@drawable/ic_backbutton"
+            app:layout_constraintBottom_toBottomOf="@+id/bquestion"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/bquestion" />
+
+        <TextView
+            android:id="@+id/txtmenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textColor="#FFFFFF"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="@+id/bquestion"
+            app:layout_constraintEnd_toStartOf="@+id/bquestion"
+            app:layout_constraintStart_toEndOf="@+id/backbutton"
+            app:layout_constraintTop_toTopOf="@+id/bquestion" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

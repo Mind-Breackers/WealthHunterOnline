@@ -23,15 +23,15 @@ class SplashScreen : AppCompatActivity() {
     val database = Firebase.database
     val userRef = database.getReference("user")
 
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        Log.d("SigIn","id23")
         auth = Firebase.auth
         if (auth.currentUser != null) {
           verification(userRef,auth.uid.toString())
         }else {
-            Log.d("SigIn","id23")
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
@@ -52,7 +52,6 @@ class SplashScreen : AppCompatActivity() {
                 if(snapshot.child(id).value!=null) {
                     val login=snapshot.child(id).child("login").value  as String
                     val rating=snapshot.child(id).child("rating").value  as Long
-                    Log.d("SigIn","id222222=$login")
                     val user= User(login,rating.toInt())
                     goPersonalAcoount(user)
                 }

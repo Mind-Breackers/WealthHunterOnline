@@ -5,7 +5,7 @@ import android.widget.RelativeLayout
 import com.example.crash.R
 import kotlin.math.pow
 
-class Field(
+open class Field(
     var parent: RelativeLayout,
     private val size: Int,
     private val cellSize: Int=10,
@@ -17,8 +17,6 @@ class Field(
     private val cells = ArrayList<ImageView>()
     private var coordinats = arrayListOf<Point>()
     private var fulldetective=false
-  //  private val cx: Int=widthrl/2// координаты АБСОЛЮТНОГО центра поля (не угла клетки!!!)
-   // private val cy: Int= heightrl/2// координаты АБСОЛЮТНОГО центра поля (не угла клетки!!!)
     private var detective_coordinats = arrayListOf<Point>()
 
     init {

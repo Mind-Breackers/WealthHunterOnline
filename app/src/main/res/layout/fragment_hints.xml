@@ -5,7 +5,7 @@
     android:id="@+id/hint"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".basic_menu.train_game.Hints">
+    tools:context=".basic_menu.train_game.">
 
     <com.revosleap.blurrylayout.BlurryLayout
         android:id="@+id/blurLa"

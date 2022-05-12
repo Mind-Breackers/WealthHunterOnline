@@ -1,3 +1,4 @@
+
 package com.example.crash.sigInUp.main
 
 
@@ -21,6 +22,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.crash.R
 import com.example.crash.basic_menu.DataPlayMenu
 import com.example.crash.basic_menu.PersonalAccount
+import com.example.crash.basic_menu.train_game.Train_game
 import com.example.crash.databinding.SigInUp2Binding
 import com.example.crash.sigInUp.Server.User
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -132,12 +134,10 @@ class MainActivity : AppCompatActivity() {
         auth.signInWithCredential(cridential).addOnCompleteListener {
             if (it.isSuccessful) {
                 val x = auth.currentUser
-                Log.d("SigIn", x!!.uid)
-                userRef.child(x.uid).setValue(user)
+                userRef.child(x!!.uid).setValue(user)
 
                 goPersonalAcoount(user)
             } else {
-                Log.d("SigIn", "false")
             }
         }
     }
@@ -357,10 +357,10 @@ class MainActivity : AppCompatActivity() {
 
     fun goPersonalAcoount(user: User) {
         //если рейтинг равен 0 то отправлять на обучение
-       val intent = Intent(this, PersonalAccount::class.java)
-        intent.putExtra("User", user)
-        startActivity(intent)
-        finish()
+            val intent = Intent(this, PersonalAccount::class.java)
+            intent.putExtra("User", user)
+            startActivity(intent)
+            finish()
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
