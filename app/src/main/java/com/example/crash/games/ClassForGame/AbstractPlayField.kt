@@ -22,12 +22,13 @@ abstract class AbstractPlayField(
     private val baggageBtn: ImageButton,
     dataPlayMenu: DataGames,
     size:Int,
-    private val musorka: ImageView
+    private val musorka: ImageView,
+    val blocks:ArrayList<Block>,
+    val blocksPool:PoolAbstract
 ) {
     val baggaeBlock= arrayListOf<Block>()
-    val blocks= arrayListOf<Block>()
     val newblockInBaggage=arrayListOf<Block>()
-    val blocksPool: Pool = Pool(parentPool, blocks, 0, displayheight / 2 - displayheight / 5, displaywidth)
+
     val cellsSize=blocksPool.cellSize
     val fieldheight = (displayheight - blocksPool.height) / 2 + 50
     val fieldwidth = displaywidth - (displaywidth / 6) * 2

@@ -24,6 +24,7 @@ import com.example.crash.games.ClassForGame.Field
 import com.example.crash.games.Game_Play.Baggage.BaggageFragment
 import com.example.crash.games.Game_Play.DataGames
 import com.example.crash.games.ClassForGame.Pool
+import com.example.crash.games.ClassForGame.PoolTrain
 
 import kotlin.Exception
 
@@ -99,19 +100,10 @@ class Train_game : Fragment() {
 
 
         var block = arrayListOf<Block>()
-        var tempPool = Pool(binding.firstScreenTrain, block, 0, displayheight / 2, displaywidth)
+        var tempPool = PoolTrain(binding.firstScreenTrain, block, 0, displayheight / 2, displaywidth)
         tempPool.clearBack()
         binding.firstScreenTrain.setOnClickListener {
             it.visibility = View.GONE
-
-            ///это надо убрать
-           // activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
-          //  dataPlayMenu.activeTrain.value =false
-          //  Log.d("Block","destroy")
-          //  binding.fraimTrain.removeAllViews()
-          //  dataGames.LifeBaggage.removeObservers(this)
-          //  dataGames.BlockOutBaggage.removeObservers(this)
-            //////
         }
 
         trainfield = TrainClass(
@@ -129,8 +121,7 @@ class Train_game : Fragment() {
         )
         binding.Player1Train.post {
             val paramsbtn = binding.baggageBtnTrain.layoutParams as RelativeLayout.LayoutParams
-            paramsbtn.leftMargin =
-                (displaywidth - (displaywidth - trainfield.fieldwidth) / 2) + (displaywidth - trainfield.fieldwidth) / 16
+            paramsbtn.leftMargin = (displaywidth - (displaywidth - trainfield.fieldwidth) / 2) + (displaywidth - trainfield.fieldwidth) / 16
             paramsbtn.topMargin = displayheight - binding.baggageBtnTrain.height
             binding.baggageBtnTrain.layoutParams = paramsbtn
 
@@ -205,18 +196,6 @@ class Train_game : Fragment() {
             binding.baggageTrain.layoutParams.height = sizeBaggage
         }
 
-
-        trainfield.actionPlay.observe(activity as LifecycleOwner) {
-            sendHint(it)
-        }
-        trainfield.blocksPool.actionPool.observe(activity as LifecycleOwner) {
-            if (it == 2) {
-                sendHint(1)
-            }
-            if (it == 1) {
-                sendHint(2)
-            }
-        }
     }
 
 
@@ -225,9 +204,11 @@ class Train_game : Fragment() {
         super.onStart()
         Log.d("Block","start22222222")
         dataGames.BlockOutBaggage.observe(activity as LifecycleOwner) {
-            trainfield.baggaeBlock?.removeLast()
-            val bl = Block(binding.rlPoolTrain, field1Centerwidth, field1Centerheight, 50, it)
-            trainfield.blocks.add(bl)
+            if(trainfield.baggaeBlock.isNotEmpty()) {
+                trainfield.baggaeBlock?.removeLast()
+                val bl = Block(binding.rlPoolTrain, field1Centerwidth, field1Centerheight, 50, it)
+                trainfield.blocks.add(bl)
+            }
         }
 
         trainfield.actionPlay.observe(activity as LifecycleOwner) {

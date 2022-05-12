@@ -11,11 +11,11 @@ import com.example.crash.games.Game_Play.DataGames
     parentGame: RelativeLayout, displayheight: Int, displaywidth: Int,
     parentPool: RelativeLayout, parentField1: RelativeLayout,
     parentField2: RelativeLayout, baggageBtn: ImageButton, dataPlayMenu: DataGames, size: Int,
-    musorka: ImageView,
+    musorka: ImageView, blocks: ArrayList<Block> = arrayListOf<Block>(), blocksPool: PoolAbstract = PoolTrain(parentPool, blocks, 0, displayheight / 2 - displayheight / 5, displaywidth),
 ) : AbstractPlayField(
     parentGame,
     displayheight, displaywidth, parentPool, parentField1, parentField2, baggageBtn, dataPlayMenu,
-    size, musorka
+    size, musorka, blocks, blocksPool,
 ) {
 
 

@@ -124,9 +124,12 @@ class Games : AppCompatActivity() {
             val fire=SkillsFire(bindingclass.fire,bindingclass.deleteRelative,game)
 
             dataGames.BlockOutBaggage.observe(this) {
-                game.baggaeBlock.removeLast()
-                val bl = Block(bindingclass.rlPool, field1Centerwidth, field1Centerheight, 50, it)
-                game.blocks.add(bl)
+                if(game.baggaeBlock.isNotEmpty()) {
+                    game.baggaeBlock.removeLast()
+                    val bl =
+                        Block(bindingclass.rlPool, field1Centerwidth, field1Centerheight, 50, it)
+                    game.blocks.add(bl)
+                }
             }
 
             bindingclass.baggageBtn.setOnClickListener {
@@ -187,6 +190,7 @@ class Games : AppCompatActivity() {
     override fun onDestroy() {
         dataPlayMenu.activeMenu.value=true
         super.onDestroy()
+
         dataGames.LifeBaggage.removeObservers(this)
         dataGames.BlockOutBaggage.removeObservers(this)
     }
