@@ -228,6 +228,7 @@ class MainActivity : AppCompatActivity() {
 
                         bindingclass.loginInput.text=bindingclass.emailInput.text
 
+                        bindingclass.loginTxt.text="Почта"
                         bindingclass.dopInfoSigin.text = "Аккаунта создан"
                         bindingclass.btnSigIn.text = "Войти"
                         bindingclass.helloText.text = getString(R.string.hello_text_sigin)
@@ -356,7 +357,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun goPersonalAcoount(user: User) {
-        //если рейтинг равен 0 то отправлять на обучение
             val intent = Intent(this, PersonalAccount::class.java)
             intent.putExtra("User", user)
             startActivity(intent)
@@ -372,6 +372,7 @@ class MainActivity : AppCompatActivity() {
                 bindingclass.emailTxt.visibility = View.VISIBLE
                 bindingclass.dopfunction.visibility = View.GONE
                 bindingclass.dopInfoSigin.visibility = View.GONE
+                bindingclass.loginTxt.text="Логин"
                 bindingclass.helloText.text = "Регистрация"
                 bindingclass.btnSigIn.text = "Зарегистрироваться"
                 bindingclass.regClick.text = "Войти"
@@ -406,6 +407,7 @@ class MainActivity : AppCompatActivity() {
                 bindingclass.emailTxt.visibility = View.GONE
                 bindingclass.dopfunction.visibility = View.VISIBLE
                 bindingclass.dopInfoSigin.visibility = View.VISIBLE
+                bindingclass.loginTxt.text="Почта"
                 bindingclass.btnSigIn.text = "Войти"
                 bindingclass.loginInput.text.clear()
                 bindingclass.passwordInput.text.clear()

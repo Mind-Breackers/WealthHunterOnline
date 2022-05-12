@@ -24,7 +24,8 @@ import com.example.crash.games.ClassForGame.Field
 import com.example.crash.games.Game_Play.Baggage.BaggageFragment
 import com.example.crash.games.Game_Play.DataGames
 import com.example.crash.games.ClassForGame.Pool
-import java.lang.Exception
+
+import kotlin.Exception
 
 
 class Train_game : Fragment() {
@@ -34,6 +35,8 @@ class Train_game : Fragment() {
     private val DataHint: DataHint by activityViewModels()
     var displayheight: Int = 0
     var displaywidth: Int = 0
+    var field1Centerwidth:Int=0
+    var field1Centerheight:Int=0
 
     lateinit var trainfield: TrainClass
 
@@ -80,8 +83,8 @@ class Train_game : Fragment() {
         val displaymetrics = resources.displayMetrics
         displayheight = displaymetrics.heightPixels
         displaywidth = displaymetrics.widthPixels
-        val field1Centerheight = displayheight / 2 + displayheight / 3
-        val field1Centerwidth = displaywidth / 2
+        field1Centerheight = displayheight / 2 + displayheight / 3
+        field1Centerwidth = displaywidth / 2
         binding.gameHint.setAutoSizeTextTypeUniformWithPresetSizes(
             intArrayOf(
                 10,
@@ -100,6 +103,15 @@ class Train_game : Fragment() {
         tempPool.clearBack()
         binding.firstScreenTrain.setOnClickListener {
             it.visibility = View.GONE
+
+            ///это надо убрать
+           // activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
+          //  dataPlayMenu.activeTrain.value =false
+          //  Log.d("Block","destroy")
+          //  binding.fraimTrain.removeAllViews()
+          //  dataGames.LifeBaggage.removeObservers(this)
+          //  dataGames.BlockOutBaggage.removeObservers(this)
+            //////
         }
 
         trainfield = TrainClass(
@@ -151,19 +163,6 @@ class Train_game : Fragment() {
             params2.height = trainfield.fieldheight
             binding.fieldTrain.layoutParams = params2
 
-
-            dataGames.BlockOutBaggage.observe(activity as LifecycleOwner, {
-                try {
-                    trainfield.baggaeBlock?.removeLast()
-                    val bl =
-                        Block(binding.rlPoolTrain, field1Centerwidth, field1Centerheight, 50, it)
-                    trainfield.blocks.add(bl)
-                }
-                catch (e:Exception){
-
-                }
-            })
-
             binding.baggageBtnTrain.setOnClickListener {
                 sendHint(8)
                 trainfield.baggaeBlock.clear()
@@ -202,40 +201,51 @@ class Train_game : Fragment() {
                 binding.baggageTrain.visibility = View.VISIBLE
                 it.isEnabled = false
             }
-
-
-
-
             sizeBaggage = trainfield.blocksPool.height / 2
             binding.baggageTrain.layoutParams.height = sizeBaggage
-
-
-            dataGames.LifeBaggage.observe(activity as LifecycleOwner, {
-                sendHint(6)
-                binding.baggageTrain.visibility = View.GONE
-                binding.baggageBtnTrain.isEnabled = true
-            })
         }
 
 
-        trainfield.actionPlay.observe(activity as LifecycleOwner, {
+        trainfield.actionPlay.observe(activity as LifecycleOwner) {
             sendHint(it)
-        })
-        trainfield.blocksPool.actionPool.observe(activity as LifecycleOwner, {
+        }
+        trainfield.blocksPool.actionPool.observe(activity as LifecycleOwner) {
             if (it == 2) {
                 sendHint(1)
             }
             if (it == 1) {
                 sendHint(2)
             }
-        })
+        }
     }
 
 
-    override fun onDestroy() {
-        super.onDestroy()
-        binding.fraimTrain.removeAllViews()
-        dataPlayMenu.activeMenu.value = true
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onStart() {
+        super.onStart()
+        Log.d("Block","start22222222")
+        dataGames.BlockOutBaggage.observe(activity as LifecycleOwner) {
+            trainfield.baggaeBlock?.removeLast()
+            val bl = Block(binding.rlPoolTrain, field1Centerwidth, field1Centerheight, 50, it)
+            trainfield.blocks.add(bl)
+        }
+
+        trainfield.actionPlay.observe(activity as LifecycleOwner) {
+            sendHint(it)
+        }
+        trainfield.blocksPool.actionPool.observe(activity as LifecycleOwner) {
+            if (it == 2) {
+                sendHint(1)
+            }
+            if (it == 1) {
+                sendHint(2)
+            }
+        }
+        dataGames.LifeBaggage.observe(activity as LifecycleOwner) {
+            sendHint(6)
+            binding.baggageTrain.visibility = View.GONE
+            binding.baggageBtnTrain.isEnabled = true
+        }
     }
 
 
@@ -362,11 +372,12 @@ class Train_game : Fragment() {
         binding.gameTrain.setOnTouchListener(null)
         binding.gameTrain.setOnClickListener {
             if(action==hintsRulsString.size){
+                activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
+                dataPlayMenu.activeTrain.value =false
+                Log.d("Block","destroy")
                 binding.fraimTrain.removeAllViews()
-                dataPlayMenu.activeMenu.value = true
-                dataGames.BlockOutBaggage.removeObservers(activity as LifecycleOwner)
-                activity?.supportFragmentManager?.beginTransaction()?.remove(this)
-                onDestroy()
+                dataGames.LifeBaggage.removeObservers(this)
+                dataGames.BlockOutBaggage.removeObservers(this)
             }
             else {
                 binding.gameHint.text = hintsRulsString[action]

@@ -2,6 +2,7 @@ package com.example.crash.games.Game_Play
 
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -11,15 +12,20 @@ import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.example.crash.R
+import com.example.crash.basic_menu.DataPlayMenu
+import com.example.crash.basic_menu.PersonalAccount
 import com.example.crash.databinding.Games2Binding
 import com.example.crash.games.ClassForGame.*
 import com.example.crash.games.Game_Play.Baggage.BaggageFragment
+import com.example.crash.sigInUp.main.SplashScreen
 
 
 class Games : AppCompatActivity() {
     lateinit var bindingclass: Games2Binding
     lateinit var root: RelativeLayout
+    private val dataPlayMenu: DataPlayMenu by viewModels()
     lateinit var FieldPlayer1: Field
     private val  dataGames:DataGames by viewModels()
     val blocks = ArrayList<Block>()
@@ -39,7 +45,7 @@ class Games : AppCompatActivity() {
         val displayheight = displaymetrics.heightPixels
         val displaywidth = displaymetrics.widthPixels
 
-        size = intent.getIntExtra("difficult", 0) * 10 * 4
+        size = intent.getIntExtra("difficult", 0) * 10
 
         val field1Centerheight = displayheight / 2 + displayheight / 3
         val field1Centerwidth = displaywidth / 2
@@ -101,27 +107,27 @@ class Games : AppCompatActivity() {
             //Туман
             bindingclass.smoke.layoutParams=params2
             val tuman=SkillsTuman(bindingclass.tuman,game,bindingclass.smoke)
-            game.blocksPool.tumanRerollOut.observe(this,{
-                tuman.flagSkiils=true
-                game.blocksPool.tumanRerollIn=true
+            game.blocksPool.tumanRerollOut.observe(this) {
+                tuman.flagSkiils = true
+                game.blocksPool.tumanRerollIn = true
                 bindingclass.smoke.visibility = View.INVISIBLE
-            })
+            }
             ///-----------------------------------
 
             //Вода
             val water=SkillsWater(bindingclass.water,game)
-            game.blocksPool.waterRerollOut.observe(this,{
-                water.action=0
-            })
+            game.blocksPool.waterRerollOut.observe(this) {
+                water.action = 0
+            }
             //----------------------------------
 
             val fire=SkillsFire(bindingclass.fire,bindingclass.deleteRelative,game)
 
-            dataGames.BlockOutBaggage.observe(this, {
+            dataGames.BlockOutBaggage.observe(this) {
                 game.baggaeBlock.removeLast()
                 val bl = Block(bindingclass.rlPool, field1Centerwidth, field1Centerheight, 50, it)
                 game.blocks.add(bl)
-            })
+            }
 
             bindingclass.baggageBtn.setOnClickListener {
                 game.baggaeBlock.clear()
@@ -170,11 +176,19 @@ class Games : AppCompatActivity() {
             }
         }
 
-        dataGames.LifeBaggage.observe(this, {
+        dataGames.LifeBaggage.observe(this) {
             bindingclass.baggage.visibility = View.GONE
             bindingclass.baggageBtn.isEnabled = true
-        })
+        }
 
+    }
+
+
+    override fun onDestroy() {
+        dataPlayMenu.activeMenu.value=true
+        super.onDestroy()
+        dataGames.LifeBaggage.removeObservers(this)
+        dataGames.BlockOutBaggage.removeObservers(this)
     }
 
     private fun openFrag(f: Fragment, idHolder: Int) {

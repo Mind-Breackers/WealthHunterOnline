@@ -52,8 +52,9 @@ class PlayMenu : Fragment() {
         binding.bplay.setOnClickListener {
             if(flag_game_train) {
                 val intentGames = Intent(activity, Games::class.java)
-                intentGames.putExtra("difficult", difficult)
+                intentGames.putExtra("difficult", 2)
                 startActivity(intentGames)
+                activity?.supportFragmentManager?.beginTransaction()?.remove(this)
             }else{
                dataPlayMenu.activeTrain.value=true
                 activity?.supportFragmentManager?.beginTransaction()?.remove(this)
@@ -80,7 +81,9 @@ class PlayMenu : Fragment() {
     }
 
 
-
+    override fun onDestroy() {
+        super.onDestroy()
+    }
 
 
     companion object {

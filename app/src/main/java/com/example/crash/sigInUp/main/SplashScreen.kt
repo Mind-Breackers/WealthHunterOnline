@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.fragment.app.activityViewModels
 import com.example.crash.basic_menu.DataPlayMenu
 import com.example.crash.basic_menu.PersonalAccount
 import com.example.crash.sigInUp.Server.User
@@ -37,6 +38,7 @@ class SplashScreen : AppCompatActivity() {
             finish()
         }
     }
+
 
     fun goPersonalAcoount(user:User){
         val intent = Intent(this, PersonalAccount::class.java)

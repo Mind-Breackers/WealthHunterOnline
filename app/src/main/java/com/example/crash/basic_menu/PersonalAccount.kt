@@ -1,9 +1,11 @@
 package com.example.crash.basic_menu
 
 import android.content.Context
+import android.content.Intent
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import androidx.activity.viewModels
@@ -12,6 +14,8 @@ import androidx.fragment.app.Fragment
 import com.example.crash.R
 import com.example.crash.basic_menu.train_game.Train_game
 import com.example.crash.databinding.PersonalAccount2Binding
+import com.example.crash.games.Game_Play.Games
+
 import com.example.crash.sigInUp.Server.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -56,22 +60,27 @@ class PersonalAccount : AppCompatActivity() {
             soundFon.start()
 
         dataPlayModel.managerSound.value=audioManager
-        dataPlayModel.activeMenu.observe(this,{
-            if(it) {
-                bindingclass.menuHolder.visibility=View.INVISIBLE
+
+        dataPlayModel.activeMenu.observe(this) {
+            if (it) {
+                bindingclass.menuHolder.visibility = View.INVISIBLE
                 bindingclass.viewPager2.visibility = View.VISIBLE
-                bindingclass.viewPager2.adapter = ViewPagerFragmentStateAdapter(supportFragmentManager, this.lifecycle)
-            }else{
+            } else {
                 finish()
             }
-        })
-        dataPlayModel.activeTrain.observe(this,{
-            if(it){
+        }
+
+        dataPlayModel.activeTrain.observe(this) {
+            if (it) {
+                Log.d("Block","start1111111")
                 bindingclass.viewPager2.visibility = View.INVISIBLE
-                bindingclass.menuHolder.visibility=View.VISIBLE
-                openFrag(Train_game.newInstance(),bindingclass.menuHolder.id)
+                bindingclass.menuHolder.visibility = View.VISIBLE
+                openFrag(Train_game.newInstance(), bindingclass.menuHolder.id)
+            }else{
+                bindingclass.menuHolder.visibility = View.INVISIBLE
+                bindingclass.viewPager2.visibility = View.VISIBLE
             }
-        })
+        }
     }
 
     override fun onDestroy() {
@@ -109,19 +118,8 @@ class PersonalAccount : AppCompatActivity() {
 
     fun readData(usertemp: User){
         user=usertemp
-        val avatar = R.drawable.boy1
         val login = user.login
-
-        if(login=="admin"){
-            openFrag(Train_game.newInstance(),bindingclass.menuHolder.id)
-
-            bindingclass.viewPager2.visibility= View.GONE
-        }
-        else {
-            bindingclass.viewPager2.adapter = ViewPagerFragmentStateAdapter(supportFragmentManager, this.lifecycle)
-        }
-
-        dataPlayModel.imId.value=avatar
+        bindingclass.viewPager2.adapter = ViewPagerFragmentStateAdapter(supportFragmentManager, this.lifecycle)
         dataPlayModel.nameP.value=login
     }
 

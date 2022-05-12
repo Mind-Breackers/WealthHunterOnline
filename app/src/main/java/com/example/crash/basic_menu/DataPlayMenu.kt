@@ -14,10 +14,6 @@ open class DataPlayMenu:ViewModel() {
         MutableLiveData<String>()
     }
 
-    val imId: MutableLiveData<Int> by lazy {
-        MutableLiveData<Int>()
-    }
-
     val activeMenu:MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>()
     }
@@ -25,16 +21,6 @@ open class DataPlayMenu:ViewModel() {
     val activeTrain:MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>()
     }
-
-    val active:MutableLiveData<View> by lazy {
-        MutableLiveData<View>()
-    }
-
-    val authResult:MutableLiveData<Boolean> by lazy {
-        MutableLiveData<Boolean>()
-    }
-
-
 
     val managerSound:MutableLiveData<AudioManager> by lazy {
         MutableLiveData<AudioManager>()

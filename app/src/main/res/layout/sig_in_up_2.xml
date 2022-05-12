@@ -182,12 +182,17 @@
 
     <Button
         android:id="@+id/googlebtn"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="148dp"
-        android:layout_marginTop="52dp"
-        android:text="Button"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#FDFDFD"
+        android:text="Sign in with Google"
+        android:textColor="#000000"
+        app:cornerRadius="6dp"
+        app:icon="@drawable/ic_wrapper"
+        app:iconTintMode="multiply"
+        app:layout_constraintEnd_toEndOf="@+id/btn_sig_in"
+        app:layout_constraintStart_toStartOf="@+id/btn_sig_in"
         app:layout_constraintTop_toBottomOf="@+id/btn_sig_in" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
