@@ -30,6 +30,8 @@ class Pool(private val parent: RelativeLayout,
         MutableLiveData<Boolean>()
     }
     var rerollIndex=0
+    var firstMove = true
+    var moveOfBottom = false
     val height=colW*2
     private var bg:View = View(parent.context)
 
@@ -41,81 +43,25 @@ class Pool(private val parent: RelativeLayout,
                 2 -> {
                     blocks[id]?.startDestroyAnimation(blockList)
                     blocks[id] = null
-                    //---------для способности туман
-                    var flagNullMas=true
-                    for (block in blocks){
-                        if(block!=null){
-                            flagNullMas=false
-                            break
-                        }
-                    }
-                    if (flagNullMas){
-                        waterRerollOut.value=true
-                        waterRerollIn = false
-                        //---туман перед каждым рероллом ставить надо этот блок
-                        if(!tumanRerollIn) {
-                            rerollIndex++
-                            if (rerollIndex == 5) {
-                                tumanRerollOut.value = true
-                                rerollIndex = 0
-                            }
-                        }
-                        //------------------------------------------------------------
-                        update()
-                        action=3
-                    }
-                    //---------------------------
                 }
                 1 -> {
-                    blocks[id]?.startMoveAnimation(if (id < 3) colW * 2 else colW)
+                    if (moveOfBottom == firstMove)
+                        blocks[id]?.startMoveAnimation(if (id < 3) colW * 2 else colW)
+                    else blocks[id]?.startMoveAnimation(if (id < 3) - colW else - colW * 2)
                     blocks[id] = null
-                    //---------для способности туман
-                    var flagNullMas=true
-                    for (block in blocks){
-                        if(block!=null){
-                            flagNullMas=false
-                            break
-                        }
-                    }
-                    if (flagNullMas){
-                        waterRerollOut.value=true
-                        waterRerollIn = false
-                        //---туман перед каждым рероллом ставить надо этот блок
-                        if(!tumanRerollIn) {
-                            rerollIndex++
-                            if (rerollIndex == 5) {
-                                tumanRerollOut.value = true
-                                rerollIndex = 0
-                            }
-                        }
-                        //------------------------------------------------------------
-                        update()
-                        action=3
-                    }
-                    //---------------------------
                 }
                 0 -> {
-                    if(!waterRerollIn) {
-                        //---туман перед каждым рероллом ставить надо этот блок
-                        if(!tumanRerollIn) {
-                            rerollIndex++
-                            if (rerollIndex == 5) {
-                                tumanRerollOut.value = true
-                                rerollIndex = 0
-                            }
-                        }
-                        //------------------------------------------------------------
-                        update()
-                    }
-                    else{
-                        blocks[id]?.startDestroyAnimation(blockList)
-                        blocks[id] = null
-                        action=2
-                    }
+                    update()
+                    firstMove = false
                 }
             }
-            actionPool.value=action
-            action--
+            if (!firstMove) {
+                actionPool.value=action
+                action--
+                firstMove = true
+            }
+            else firstMove = false
+
         }
             true
         }
@@ -129,6 +75,7 @@ class Pool(private val parent: RelativeLayout,
     }
 
     private fun update() {
+        moveOfBottom = !moveOfBottom
         action = 3
         for (i in blocks.indices) if (blocks[i] != null) blocks[i]?.destroy(blockList)
         for (i in 0..5) {

@@ -118,7 +118,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun getClient(): GoogleSignInClient {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestIdToken("912809805644-ott7anaovkhh4nt4l08nlglop71qb7ja.apps.googleusercontent.com")
             .requestEmail()
             .build()
         return GoogleSignIn.getClient(this, gso)
