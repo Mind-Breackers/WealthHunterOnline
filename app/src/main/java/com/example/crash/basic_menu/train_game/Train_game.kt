@@ -140,12 +140,12 @@ class Train_game : Fragment() {
 
             val params = binding.skillsLeftPlayer1Train.layoutParams as LinearLayout.LayoutParams
             params.width = (displaywidth - trainfield.fieldwidth) / 2
-            params.height = trainfield.fieldheight
+            params.height =  displayheight - (trainfield.blocksPool.posY + trainfield.blocksPool.height)-50
             binding.skillsLeftPlayer1Train.layoutParams = params
 
             val params1 = binding.skillsRightTrain.layoutParams as LinearLayout.LayoutParams
             params1.width = (displaywidth - trainfield.fieldwidth) / 2
-            params1.height = trainfield.fieldheight - binding.baggageBtnTrain.height
+            params1.height = displayheight - (trainfield.blocksPool.posY + trainfield.blocksPool.height) - binding.baggageBtnTrain.height-50
             binding.skillsRightTrain.layoutParams = params1
 
 

@@ -3,6 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/WealthHunterOnline/app/src/main/res/layout/fragment_first_list_.xml" value="0.4296875" />
+        <entry key="..\:/WealthHunterOnline/app/src/main/res/layout/fragment_first_list_enemy.xml" value="0.4296875" />
+        <entry key="..\:/WealthHunterOnline/app/src/main/res/layout/fragment_second_list_enemy.xml" value="0.415625" />
+        <entry key="..\:/WealthHunterOnline/app/src/main/res/layout/fragment_second_list_fragment.xml" value="0.4296875" />
+        <entry key="..\:/WealthHunterOnline/app/src/main/res/layout/fragment_train_game.xml" value="0.42864583333333334" />
         <entry key="..\:/WealthHunterOnline/app/src/main/res/layout/games2.xml" value="0.37135416666666665" />
         <entry key="..\:/WealthHunterOnline/app/src/main/res/layout/personal_account2.xml" value="0.37135416666666665" />
         <entry key="..\:/WealthHunterOnline/app/src/main/res/layout/sig_in_up_2.xml" value="0.37135416666666665" />

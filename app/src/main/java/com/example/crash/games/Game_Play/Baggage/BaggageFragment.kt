@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.example.crash.databinding.FragmentBaggageBinding
 import com.example.crash.games.ClassForGame.Block
+import com.example.crash.games.Game_Play.Baggage.Enemy.BaggageAdapterEnemy
 import com.example.crash.games.Game_Play.DataGames
 
 class BaggageFragment : Fragment() {
@@ -30,8 +31,18 @@ class BaggageFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        var flag=true
+        if(dataGames.TopOrBottom.value!=null){
+             flag= dataGames.TopOrBottom.value!!
+        }
         baggageBinding = FragmentBaggageBinding.inflate(inflater)
-        baggageBinding.fragmentAdapter.adapter = BaggagePagerAdapter(activity?.supportFragmentManager!!, this.lifecycle)
+        if(flag) {
+            baggageBinding.fragmentAdapter.adapter =
+                BaggagePagerAdapter(activity?.supportFragmentManager!!, this.lifecycle)
+        }else {
+            baggageBinding.fragmentAdapter.adapter =
+                BaggageAdapterEnemy(activity?.supportFragmentManager!!, this.lifecycle)
+        }
         return baggageBinding.root
 
     }
@@ -45,7 +56,6 @@ class BaggageFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        dataGames.LifeBaggage.value=true
     }
 
 

@@ -1,4 +1,4 @@
-package com.example.crash.games.Game_Play.Baggage
+package com.example.crash.games.Game_Play.Baggage.Enemy
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -13,11 +13,14 @@ import androidx.core.view.marginTop
 import androidx.fragment.app.activityViewModels
 import com.example.crash.R
 import com.example.crash.databinding.FragmentFirstListBinding
+import com.example.crash.databinding.FragmentFirstListEnemyBinding
 import com.example.crash.games.ClassForGame.Block
+import com.example.crash.games.Game_Play.Baggage.FirstListFragment
 import com.example.crash.games.Game_Play.DataGames
 
-class FirstListFragment : Fragment() {
-    lateinit var baggageBinding:FragmentFirstListBinding
+
+class FirstListFragmentEnemy : Fragment() {
+    lateinit var baggageBinding: FragmentFirstListEnemyBinding
     private val dataGames: DataGames by activityViewModels()
     var lastX = 0
     var lastY = 0
@@ -27,7 +30,7 @@ class FirstListFragment : Fragment() {
     private var blocks = arrayListOf<Block>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        dataGames.BlockInBaggage1.value?.let { blocks.addAll(it) }
+        dataGames.BlockInBaggageEnemy1.value?.let { blocks.addAll(it) }
         super.onCreate(savedInstanceState)
     }
 
@@ -35,7 +38,7 @@ class FirstListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        baggageBinding= FragmentFirstListBinding.inflate(inflater)
+        baggageBinding= FragmentFirstListEnemyBinding.inflate(inflater)
 
         return baggageBinding.root
     }
@@ -56,55 +59,55 @@ class FirstListFragment : Fragment() {
             }
         }
 
-            baggageBinding.baggageFirst.setOnTouchListener { v, event ->
-                when (event.action) {
+        baggageBinding.baggageFirst.setOnTouchListener { v, event ->
+            when (event.action) {
 
-                    MotionEvent.ACTION_DOWN -> {
-                        if (blocks.size != 0) {
-                            for (block in blocks.reversed()) {
-                                if (block!!.containsPoint(event.x.toInt(), event.y.toInt())) {
-                                    val captureBlock=block
-                                    block.destroy(blocks)
-                                    dataGames.BlockInBaggage1.value = blocks
-                                    dataGames.BlockOutBaggage.value = captureBlock
-                                    activity?.supportFragmentManager?.beginTransaction()?.setCustomAnimations(R.anim.slide_in,R.anim.slide_out)?.remove(this)?.commit()
+                MotionEvent.ACTION_DOWN -> {
+                    if (blocks.size != 0) {
+                        for (block in blocks.reversed()) {
+                            if (block!!.containsPoint(event.x.toInt(), event.y.toInt())) {
+                                val captureBlock=block
+                                block.destroy(blocks)
+                                dataGames.BlockInBaggageEnemy1.value = blocks
+                                dataGames.BlockOutBaggageEnemy.value = captureBlock
+                                activity?.supportFragmentManager?.beginTransaction()?.setCustomAnimations(R.anim.enemy_slide_in,R.anim.slide_out)?.remove(this)?.commit()
 
-                                    break
-                                }
+                                break
                             }
-                            lastY = event.y.toInt()
-                            lastX=event.x.toInt()
-                        } else {
-                            lastY = event.y.toInt()
-                            lastX=event.x.toInt()
                         }
-                    }
-
-
-                    MotionEvent.ACTION_MOVE -> {
-                        if(lastX-event.x.toInt()<35&&event.x.toInt()-lastX<35) {
-                            move(baggageBinding.rlBaggageFirst, event.y.toInt() - lastY)
-                            lastY = event.y.toInt()
-                            check_in_baggage(lastY, view)
-                        }
-                        else {
-                            close_Baggage(view.height / 2, baggageBinding.rlBaggageFirst)
-                            lastY = event.y.toInt()
-
-                        }
-                    }
-
-                    MotionEvent.ACTION_UP -> {
-
-                        check_in_baggage(lastY, view)
                         lastY = event.y.toInt()
-                        close_Baggage(view.height / 2, baggageBinding.rlBaggageFirst)
+                        lastX=event.x.toInt()
+                    } else {
+                        lastY = event.y.toInt()
+                        lastX=event.x.toInt()
                     }
-
-
                 }
-                true
+
+
+                MotionEvent.ACTION_MOVE -> {
+                    if(lastX-event.x.toInt()<35&&event.x.toInt()-lastX<35) {
+                        move(baggageBinding.rlBaggageFirst, event.y.toInt() - lastY)
+                        lastY = event.y.toInt()
+                        check_in_baggage(lastY, view)
+                    }
+                    else {
+                        close_Baggage(view.height / 2, baggageBinding.rlBaggageFirst)
+                        lastY = event.y.toInt()
+
+                    }
+                }
+
+                MotionEvent.ACTION_UP -> {
+
+                    check_in_baggage(lastY, view)
+                    lastY = event.y.toInt()
+                    close_Baggage(view.height / 2, baggageBinding.rlBaggageFirst)
+                }
+
+
             }
+            true
+        }
 
 
 
@@ -123,7 +126,7 @@ class FirstListFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         baggageBinding.baggageFirst.removeAllViews()
-        dataGames.LifeBaggage.value=true
+        dataGames.LifeBaggageEnemy.value=true
     }
 
 
@@ -142,13 +145,13 @@ class FirstListFragment : Fragment() {
             move(view,0-view.marginTop)
         }
         if(y>view.height){
-            activity?.supportFragmentManager?.beginTransaction()?.setCustomAnimations(R.anim.slide_in,R.anim.slide_out)?.remove(this)?.commit()
+            activity?.supportFragmentManager?.beginTransaction()?.setCustomAnimations(R.anim.enemy_slide_in,R.anim.slide_out)?.remove(this)?.commit()
         }
     }
 
     fun close_Baggage(centerView:Int,view: View){
         if(view.marginTop>centerView){
-             activity?.supportFragmentManager?.beginTransaction()?.setCustomAnimations(R.anim.slide_in,R.anim.slide_out)?.remove(this)?.commit()
+            activity?.supportFragmentManager?.beginTransaction()?.setCustomAnimations(R.anim.enemy_slide_in,R.anim.slide_out)?.remove(this)?.commit()
         }
         else{
             move(view,0-view.marginTop)
@@ -158,6 +161,6 @@ class FirstListFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance() = FirstListFragment()
+        fun newInstance() = FirstListFragmentEnemy()
     }
 }

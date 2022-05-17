@@ -1,5 +1,6 @@
 package com.example.crash.games.ClassForGame
 
+import android.util.Log
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import com.example.crash.R
@@ -50,17 +51,18 @@ open class Field(
     }
 
     fun figureOutDetection(figure: Block): Boolean {
-       // Log.d("Field1","${detective_coordinats.size}")
+      // Log.d("Block","size do vsego ${detective_coordinats.size}")
+     //  Log.d("Block","size do vsego ${detective_coordinats}")
         if (figure.detective) {
             for (block in figure.coordinatsBlock) {
-                //Log.d("Field1","${block.x}+${block.y}")
+             //   Log.d("Block","${block.x}+${block.y}")
                 if (block.getDetectivePos(detective_coordinats) != -1) {
                     detective_coordinats.removeAt(block.getDetectivePos(detective_coordinats))
                 }
             }
             figure.detective = false
         }
-       // Log.d("Field1","${detective_coordinats.size}")
+       // Log.d("Block","size ${detective_coordinats.size}")
         return true
     }
 
@@ -69,7 +71,7 @@ open class Field(
         var detective_field2 = arrayListOf<Point>()
         var detective_field3 = arrayListOf<Point>()
         var detective_field4 = arrayListOf<Point>()
-        //println("start")
+
         var flag_side = 0;
         for (block in figure.coordinatsBlock) {
             for (field in coordinats) {
@@ -132,7 +134,6 @@ open class Field(
                 Center(detective_field1).x - Center(figure.coordinatsBlock).x ,
                 Center(detective_field1).y - Center(figure.coordinatsBlock).y
             )
-
             return true
         }
         if (detective_field2.size == figure.coordinatsBlock.size && flag_side == 2) {
@@ -143,7 +144,6 @@ open class Field(
                 Center(detective_field2).x - Center(figure.coordinatsBlock).x ,
                 Center(detective_field2).y - Center(figure.coordinatsBlock).y
             )
-
             return true
         }
         if (detective_field3.size == figure.coordinatsBlock.size && flag_side == 3) {
@@ -154,7 +154,6 @@ open class Field(
                 Center(detective_field3).x - Center(figure.coordinatsBlock).x ,
                 Center(detective_field3).y - Center(figure.coordinatsBlock).y
             )
-
             return true
         }
         if (detective_field4.size == figure.coordinatsBlock.size && flag_side == 4) {
@@ -165,7 +164,6 @@ open class Field(
                 Center(detective_field4).x - Center(figure.coordinatsBlock).x ,
                 Center(detective_field4).y - Center(figure.coordinatsBlock).y
             )
-
             return true
         }
         return false

@@ -9,10 +9,22 @@ open class DataGames: ViewModel(){
         MutableLiveData<Boolean>()
     }
 
+    val LifeBaggageEnemy: MutableLiveData<Boolean> by lazy {
+        MutableLiveData<Boolean>()
+    }
+
     val BlockInBaggage1: MutableLiveData<ArrayList<Block>> by lazy {
         MutableLiveData<ArrayList<Block>>()
     }
+    val BlockInBaggageEnemy1: MutableLiveData<ArrayList<Block>> by lazy {
+        MutableLiveData<ArrayList<Block>>()
+    }
+
     val BlockInBaggage2: MutableLiveData<ArrayList<Block>> by lazy {
+        MutableLiveData<ArrayList<Block>>()
+    }
+
+    val BlockInBaggageEnemy2: MutableLiveData<ArrayList<Block>> by lazy {
         MutableLiveData<ArrayList<Block>>()
     }
 
@@ -20,4 +32,11 @@ open class DataGames: ViewModel(){
         MutableLiveData<Block>()
     }
 
+    val BlockOutBaggageEnemy: MutableLiveData<Block> by lazy {
+        MutableLiveData<Block>()
+    }
+
+    val TopOrBottom: MutableLiveData<Boolean> by lazy {
+        MutableLiveData<Boolean>()
+    }
 }
