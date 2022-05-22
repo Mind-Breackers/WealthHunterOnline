@@ -34,8 +34,8 @@ class PersonalAccount : AppCompatActivity() {
     val database = Firebase.database
     lateinit var audioManager:AudioManager
     val userRef = database.getReference("user")
-    var user=User("Error", uid = "")
-    var userGuest=User("Error", uid = "")
+    var user=User("Error", uid = null )
+    var userGuest=User("Error", uid = null )
     var flaguserGuest=false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,21 +49,19 @@ class PersonalAccount : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        flaguserGuest=intent.getBooleanExtra("Guest1",false)
 
         if(intent.getParcelableExtra<User>("User")!=null) {
             user = intent.getParcelableExtra<User>("User")!!
             flaguserGuest=false
+            user.uid?.let { raitinSearch(userRef, it,user) }
             readData(user)
         }
         if(intent.getParcelableExtra<User>("Guest")!=null) {
-            Log.d("Guest", user.toString())
             userGuest = intent.getParcelableExtra<User>("Guest")!!
             flaguserGuest=true
+            userGuest.uid?.let { raitinSearch(userRef, it,userGuest) }
             readData(userGuest)
         }
-
-
 
 
            audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
@@ -82,7 +80,6 @@ class PersonalAccount : AppCompatActivity() {
                    finish()
                }
            }
-
 
 
            dataPlayModel.activeTrain.observe(this) {
@@ -110,6 +107,7 @@ class PersonalAccount : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+
         soundFon.start()
     }
 
@@ -136,14 +134,29 @@ class PersonalAccount : AppCompatActivity() {
         val login = user.login
         bindingclass.viewPager2.adapter = ViewPagerFragmentStateAdapter(supportFragmentManager, this.lifecycle)
         if(!flaguserGuest) {
-
             dataPlayModel.nameP.value = user
         }else{
-
             dataPlayModel.nameGuest.value=user
         }
     }
 
+    fun raitinSearch(ref: DatabaseReference, idToken: String,user: User) {
+        ref.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.child(idToken).value !=null) {
+                    val raiting=snapshot.child(idToken).child("rating").value as Long
+                    user.rating =raiting.toInt()
+                }else{
+
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
+
+    }
 
 }
 

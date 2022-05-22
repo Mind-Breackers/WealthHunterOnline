@@ -9,7 +9,9 @@ import android.widget.RelativeLayout
 import androidx.core.view.marginBottom
 import androidx.core.view.marginLeft
 import androidx.core.view.marginTop
+import androidx.lifecycle.MutableLiveData
 import com.example.crash.games.Game_Play.DataGames
+import com.example.crash.sigInUp.Server.User
 
 @SuppressLint("ClickableViewAccessibility")
  class GameClass(
@@ -26,14 +28,18 @@ import com.example.crash.games.Game_Play.DataGames
     blocks: ArrayList<Block> = arrayListOf<Block>(),
     blocksPool: PoolAbstract = Pool(parentPool, blocks, 0, displayheight / 2 - displayheight / 5, displaywidth),
     musorkaEnemy: ImageView,
-    baggageBtnEnemy: ImageButton
+    baggageBtnEnemy: ImageButton,
+    userbottom:User,
+    userTop:User
 ) : AbstractPlayField(
     parentGame,
     displayheight, displaywidth, parentPool, parentField1, parentField2, baggageBtn, dataPlayMenu,
     size, musorka, blocks, blocksPool,
 ) {
 
-
+    val winAction: MutableLiveData<Boolean> by lazy {
+        MutableLiveData<Boolean>()
+    }
 
     init {
 
@@ -164,6 +170,12 @@ import com.example.crash.games.Game_Play.DataGames
                                                     playField.figureDetection(capturedBlock!!)
                                             }
                                             if (playField.checkWin()) {
+                                                userbottom.rating+=10
+                                                winAction.value=true
+                                            }
+                                            if (enemyField.checkWin()) {
+                                                userTop.rating+=10
+                                                winAction.value=false
                                             }
                                         }
                                     }

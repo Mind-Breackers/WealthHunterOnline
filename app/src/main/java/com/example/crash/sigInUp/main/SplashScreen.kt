@@ -43,6 +43,8 @@ class SplashScreen : AppCompatActivity() {
     fun goPersonalAcoount(user:User){
         val intent = Intent(this, PersonalAccount::class.java)
         intent.putExtra("User",user)
+        val usernull = User("Guest", 0, null)
+        intent.putExtra("Guest", usernull)
         startActivity(intent)
         finish()
     }

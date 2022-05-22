@@ -20,7 +20,10 @@ import com.example.crash.basic_menu.PersonalAccount
 import com.example.crash.databinding.Games2Binding
 import com.example.crash.games.ClassForGame.*
 import com.example.crash.games.Game_Play.Baggage.BaggageFragment
+import com.example.crash.sigInUp.Server.User
 import com.example.crash.sigInUp.main.SplashScreen
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 
 class Games : AppCompatActivity() {
@@ -31,6 +34,10 @@ class Games : AppCompatActivity() {
     private val  dataGames:DataGames by viewModels()
     val blocks = ArrayList<Block>()
     var downX = 0
+    lateinit var userbottom:User
+    lateinit var userTop:User
+    val database = Firebase.database
+    val ref=database.getReference("user")
     private var size = 0
     private var sizeBaggage = 0
 
@@ -47,6 +54,11 @@ class Games : AppCompatActivity() {
         val displaywidth = displaymetrics.widthPixels
 
         size = intent.getIntExtra("difficult", 0) * 10
+        userbottom =intent.getParcelableExtra<User>("Bottom")!!
+        userTop =intent.getParcelableExtra<User>("Top")!!
+       bindingclass.logTop.text=userTop.login
+       bindingclass.logBottom.text=userbottom.login
+
 
         val field1Centerheight = displayheight / 2 + displayheight / 3
         val field1Centerwidth = displaywidth / 2
@@ -69,7 +81,9 @@ class Games : AppCompatActivity() {
                 size,
                 bindingclass.musorkaSvg2,
                 musorkaEnemy= bindingclass.musorkaSvg1,
-                baggageBtnEnemy=bindingclass.baggageBtnEnemy
+                baggageBtnEnemy=bindingclass.baggageBtnEnemy,
+                userbottom = userbottom,
+                userTop = userTop
             )
 
 
@@ -250,6 +264,14 @@ class Games : AppCompatActivity() {
             bindingclass.Player1.post {
                 bindingclass.baggage.layoutParams.height = sizeBaggage
             }
+
+            game.winAction.observe(this){
+                if(it){
+                    plusRaiting(userbottom)
+                }else{
+                    plusRaiting(userTop)
+                }
+            }
         }
 
         dataGames.LifeBaggage.observe(this) {
@@ -261,6 +283,10 @@ class Games : AppCompatActivity() {
             bindingclass.baggageEnemy.visibility = View.GONE
             bindingclass.baggageBtnEnemy.isEnabled = true
         }
+
+
+
+
     }
 
 
@@ -286,6 +312,19 @@ class Games : AppCompatActivity() {
 
         }
 
+    }
+
+    fun plusRaiting(user: User){
+        if(user.uid!=null ) {
+            ref.child(user.uid!!).setValue(user).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    finish()
+                }
+            }
+        }else{
+
+            finish()
+        }
     }
 }
 

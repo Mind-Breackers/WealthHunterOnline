@@ -35,5 +35,4 @@ open class DataPlayMenu:ViewModel() {
         MutableLiveData<Int>()
     }
 
-
 }

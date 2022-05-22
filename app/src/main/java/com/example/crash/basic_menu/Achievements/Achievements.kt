@@ -63,6 +63,10 @@ class Achievements : Fragment(), SeekBar.OnSeekBarChangeListener {
             dataPlayMenu.activeMenu.value=false
         }
 
+        dataPlayMenu.nameGuest.observe(activity as LifecycleOwner){
+            binding.raiting1.text = it.rating.toString()
+        }
+
         dataPlayMenu.SeekBar.observe(activity as LifecycleOwner) {
             when (it) {
                 1 -> {

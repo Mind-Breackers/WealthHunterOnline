@@ -133,12 +133,36 @@ class MainActivity : AppCompatActivity() {
         auth.signInWithCredential(cridential).addOnCompleteListener {
             if (it.isSuccessful) {
                 val x = auth.currentUser
-                user = User(auth.currentUser?.displayName.toString(),uid=x!!.uid.toString())
-                userRef.child(x!!.uid).setValue(user)
-                goPersonalAcoount(user)
+                raitinSearch( userRef,x!!.uid)
             }
         }
     }
+
+    fun raitinSearch(ref: DatabaseReference, idToken: String) {
+        ref.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.child(idToken).value !=null) {
+                    val raiting=snapshot.child(idToken).child("rating").value as Long
+                    val x = auth.currentUser
+                    user = User(auth.currentUser?.displayName.toString(),raiting.toInt(),uid=x!!.uid.toString())
+                    goPersonalAcoount(user)
+                }else{
+                    val x = auth.currentUser
+                    user = User(auth.currentUser?.displayName.toString(),uid=x!!.uid.toString())
+                    userRef.child(x!!.uid).setValue(user)
+                    goPersonalAcoount(user)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+        })
+
+    }
+
+
+
 
     @RequiresApi(Build.VERSION_CODES.M)
     fun btnSigIn(view: View) {
@@ -364,24 +388,20 @@ class MainActivity : AppCompatActivity() {
             }
             if(mainuser !=null) {
                 if (mainuser?.uid != user.uid) {
-                    Log.d("Guest","4")
                     intent.putExtra("User", mainuser)
                     intent.putExtra("Guest", user)
                 } else {
-                    Log.d("Guest","3")
                     intent.putExtra("User", mainuser)
                     val usernull = User("Guest", 0, null)
                     intent.putExtra("Guest", usernull)
                 }
             }else{
-                Log.d("Guest","2")
                 intent.putExtra("User", user)
                 val usernull = User("Guest", 0, null)
                 intent.putExtra("Guest", usernull)
             }
         }
         else {
-            Log.d("Guest","1")
             val usernull=User("Guest",0,null)
             intent.putExtra("User", user)
             intent.putExtra("Guest", usernull)

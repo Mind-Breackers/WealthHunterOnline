@@ -8,11 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LifecycleOwner
 import com.example.crash.basic_menu.train_game.Train_game
 import com.example.crash.databinding.FragmentPlayMenuBinding
 import com.example.crash.games.ClassForGame.Field
 import com.example.crash.games.ClassForGame.FieldPreview
 import com.example.crash.games.Game_Play.Games
+import com.example.crash.sigInUp.Server.User
 import com.example.crash.sigInUp.main.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -25,6 +27,8 @@ class PlayMenu : Fragment() {
     var difficult=1
     var flag_game_train=true
     lateinit var auth: FirebaseAuth
+    lateinit var userbottom: User
+    lateinit var userTop: User
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,6 +48,11 @@ class PlayMenu : Fragment() {
             binding.bplay.width=binding.previeFields.width
         }
         binding.txtmenu.text="Mind Brakers"
+        dataPlayMenu.nameP.observe(activity as LifecycleOwner){
+            userbottom = dataPlayMenu.nameP.value!!
+        }
+        userTop = dataPlayMenu.nameGuest.value!!
+
         return binding.root
     }
 
@@ -53,6 +62,8 @@ class PlayMenu : Fragment() {
             if(flag_game_train) {
                 val intentGames = Intent(activity, Games::class.java)
                 intentGames.putExtra("difficult", 2)
+                intentGames.putExtra("Bottom",userbottom)
+                intentGames.putExtra("Top",userTop)
                 startActivity(intentGames)
                 activity?.supportFragmentManager?.beginTransaction()?.remove(this)
             }else{
