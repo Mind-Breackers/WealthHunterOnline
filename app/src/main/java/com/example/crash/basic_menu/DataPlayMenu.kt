@@ -10,10 +10,15 @@ import androidx.lifecycle.ViewModel
 import com.example.crash.sigInUp.Server.User
 
 open class DataPlayMenu:ViewModel() {
-    val nameP: MutableLiveData<String> by lazy {
-        MutableLiveData<String>()
+    val nameP: MutableLiveData<User> by lazy {
+        MutableLiveData<User>()
     }
-
+    val nameGuest: MutableLiveData<User> by lazy {
+        MutableLiveData<User>()
+    }
+    val flagGUest:MutableLiveData<Boolean> by lazy {
+        MutableLiveData<Boolean>()
+    }
     val activeMenu:MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>()
     }

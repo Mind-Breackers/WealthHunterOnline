@@ -17,6 +17,7 @@ import com.example.crash.databinding.PersonalAccount2Binding
 import com.example.crash.games.Game_Play.Games
 
 import com.example.crash.sigInUp.Server.User
+import com.example.crash.sigInUp.main.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
@@ -33,19 +34,14 @@ class PersonalAccount : AppCompatActivity() {
     val database = Firebase.database
     lateinit var audioManager:AudioManager
     val userRef = database.getReference("user")
-    var user=User("Error")
+    var user=User("Error", uid = "")
+    var userGuest=User("Error", uid = "")
+    var flaguserGuest=false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bindingclass = PersonalAccount2Binding.inflate(layoutInflater)
         setContentView(bindingclass.root)
-        if(intent.getParcelableExtra<User>("User")!=null) {
-            user = intent.getParcelableExtra<User>("User")!!
-            readData(user)
-        }else {
-            var user = User("Error")
-            readData(user)
-        }
 
     }
 
@@ -53,34 +49,53 @@ class PersonalAccount : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
-        soundFon=MediaPlayer.create(this,R.raw.fonovoya)
-        soundFon2=MediaPlayer.create(this,R.raw.fonovoya2)
-        soundFon3=MediaPlayer.create(this,R.raw.fonovoya3)
-            soundFon.start()
+        flaguserGuest=intent.getBooleanExtra("Guest1",false)
 
-        dataPlayModel.managerSound.value=audioManager
-
-        dataPlayModel.activeMenu.observe(this) {
-            if (it) {
-                bindingclass.menuHolder.visibility = View.INVISIBLE
-                bindingclass.viewPager2.visibility = View.VISIBLE
-            } else {
-                finish()
-            }
+        if(intent.getParcelableExtra<User>("User")!=null) {
+            user = intent.getParcelableExtra<User>("User")!!
+            flaguserGuest=false
+            readData(user)
+        }
+        if(intent.getParcelableExtra<User>("Guest")!=null) {
+            Log.d("Guest", user.toString())
+            userGuest = intent.getParcelableExtra<User>("Guest")!!
+            flaguserGuest=true
+            readData(userGuest)
         }
 
-        dataPlayModel.activeTrain.observe(this) {
-            if (it) {
-                Log.d("Block","start1111111")
-                bindingclass.viewPager2.visibility = View.INVISIBLE
-                bindingclass.menuHolder.visibility = View.VISIBLE
-                openFrag(Train_game.newInstance(), bindingclass.menuHolder.id)
-            }else{
-                bindingclass.menuHolder.visibility = View.INVISIBLE
-                bindingclass.viewPager2.visibility = View.VISIBLE
-            }
-        }
+
+
+
+           audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+           soundFon = MediaPlayer.create(this, R.raw.fonovoya)
+           soundFon2 = MediaPlayer.create(this, R.raw.fonovoya2)
+           soundFon3 = MediaPlayer.create(this, R.raw.fonovoya3)
+           soundFon.start()
+
+           dataPlayModel.managerSound.value = audioManager
+
+           dataPlayModel.activeMenu.observe(this) {
+               if (it) {
+                   bindingclass.menuHolder.visibility = View.INVISIBLE
+                   bindingclass.viewPager2.visibility = View.VISIBLE
+               } else {
+                   finish()
+               }
+           }
+
+
+
+           dataPlayModel.activeTrain.observe(this) {
+               if (it) {
+                   bindingclass.viewPager2.visibility = View.INVISIBLE
+                   bindingclass.menuHolder.visibility = View.VISIBLE
+                   openFrag(Train_game.newInstance(), bindingclass.menuHolder.id)
+               } else {
+                   bindingclass.menuHolder.visibility = View.INVISIBLE
+                   bindingclass.viewPager2.visibility = View.VISIBLE
+               }
+           }
+
     }
 
     override fun onDestroy() {
@@ -120,7 +135,13 @@ class PersonalAccount : AppCompatActivity() {
         user=usertemp
         val login = user.login
         bindingclass.viewPager2.adapter = ViewPagerFragmentStateAdapter(supportFragmentManager, this.lifecycle)
-        dataPlayModel.nameP.value=login
+        if(!flaguserGuest) {
+
+            dataPlayModel.nameP.value = user
+        }else{
+
+            dataPlayModel.nameGuest.value=user
+        }
     }
 
 

@@ -24,6 +24,10 @@
             android:name=".sigInUp.main.MainActivity">
         </activity>
         <activity android:name=".basic_menu.PersonalAccount" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

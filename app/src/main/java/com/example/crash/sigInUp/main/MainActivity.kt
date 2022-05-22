@@ -8,31 +8,23 @@ package com.example.crash.sigInUp.main
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.support.v4.os.IResultReceiver
 import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.MutableLiveData
 import com.example.crash.R
-import com.example.crash.basic_menu.DataPlayMenu
 import com.example.crash.basic_menu.PersonalAccount
-import com.example.crash.basic_menu.train_game.Train_game
 import com.example.crash.databinding.SigInUp2Binding
 import com.example.crash.sigInUp.Server.User
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.auth.AuthResult
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.*
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -41,7 +33,6 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.*
-import okhttp3.internal.wait
 
 
 /*import com.google.gson.GsonBuilder
@@ -60,13 +51,15 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var launcer: ActivityResultLauncher<Intent>
     lateinit var auth: FirebaseAuth
+    lateinit var authGuest: FirebaseAuth
     private lateinit var bindingclass: SigInUp2Binding
     private var login: String = "0"
     private var password: String = "0"
     private var email: String = "empty"
-    private var USER_KEY = "User"
     private var flagInUp = true
     lateinit var user: User
+    var mainuser: User?=null
+    var flagGuest=false
     val database = Firebase.database
     private val userRef = database.getReference("user")
     private val sigRef = database.getReference("user")
@@ -78,9 +71,6 @@ class MainActivity : AppCompatActivity() {
         bindingclass = SigInUp2Binding.inflate(layoutInflater)
         setContentView(bindingclass.root)
         //rawJSON()
-
-
-
         bindingclass.googlebtn.setOnClickListener {
             auth=Firebase.auth
             sigGoogle()
@@ -91,12 +81,10 @@ class MainActivity : AppCompatActivity() {
 
         launcer = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { itTask ->
                 val task = GoogleSignIn.getSignedInAccountFromIntent(itTask.data)
-
                 try {
                     val account = task.getResult(ApiException::class.java)
                     if (account != null) {
                         firebaseWithGoogle(account.idToken!!)
-                        user = User(account.displayName.toString(),)
                     }
                 } catch (e: ApiException) {
                     Log.d("SigIn", "${e.statusCode}")
@@ -106,6 +94,17 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+        flagGuest=intent.getBooleanExtra("Guest",false)
+        if(intent.getParcelableExtra<User>("MainUser") !=null) {
+            mainuser = intent.getParcelableExtra<User>("MainUser")!!
+        }
+
+        authGuest=Firebase.auth
+        auth=Firebase.auth
+
+
+
+
         bindingclass.loginInput.text.clear()
         bindingclass.passwordInput.text.clear()
 
@@ -134,10 +133,9 @@ class MainActivity : AppCompatActivity() {
         auth.signInWithCredential(cridential).addOnCompleteListener {
             if (it.isSuccessful) {
                 val x = auth.currentUser
+                user = User(auth.currentUser?.displayName.toString(),uid=x!!.uid.toString())
                 userRef.child(x!!.uid).setValue(user)
-
                 goPersonalAcoount(user)
-            } else {
             }
         }
     }
@@ -196,6 +194,7 @@ class MainActivity : AppCompatActivity() {
                 snapshot.children.forEach {
                     if (login == it.child("login").value && password !=it.child("password").value) {
                       flagLog=false
+
                         bindingclass.dopInfoSigin.text = "Логин занят"
                         bindingclass.dopInfoSigin.visibility = View.VISIBLE
                     }
@@ -213,12 +212,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun creatUser(){
-        user = User(login)
         auth=Firebase.auth
         auth.signOut()
-        Log.d("Login","$user")
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
+                        user = User(login,uid=auth.uid!!)
                         userRef.child(auth.uid!!).setValue(user)
                     }
                 }
@@ -340,7 +338,7 @@ class MainActivity : AppCompatActivity() {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         val login = snapshot.child(auth.uid!!).child("login").value as String
                         val rating = snapshot.child(auth.uid!!).child("rating").value as Long
-                        val user = User(login, rating.toInt())
+                        val user = User(login, rating.toInt(), uid = auth.uid!!)
                         goPersonalAcoount(user)
                     }
                     override fun onCancelled(error: DatabaseError) {
@@ -356,9 +354,38 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     fun goPersonalAcoount(user: User) {
             val intent = Intent(this, PersonalAccount::class.java)
+            intent.putExtra("Guest1", flagGuest)
+        if(authGuest.currentUser!=null) {
+            if(flagGuest) {
+                auth.signOut()
+            }
+            if(mainuser !=null) {
+                if (mainuser?.uid != user.uid) {
+                    Log.d("Guest","4")
+                    intent.putExtra("User", mainuser)
+                    intent.putExtra("Guest", user)
+                } else {
+                    Log.d("Guest","3")
+                    intent.putExtra("User", mainuser)
+                    val usernull = User("Guest", 0, null)
+                    intent.putExtra("Guest", usernull)
+                }
+            }else{
+                Log.d("Guest","2")
+                intent.putExtra("User", user)
+                val usernull = User("Guest", 0, null)
+                intent.putExtra("Guest", usernull)
+            }
+        }
+        else {
+            Log.d("Guest","1")
+            val usernull=User("Guest",0,null)
             intent.putExtra("User", user)
+            intent.putExtra("Guest", usernull)
+        }
             startActivity(intent)
             finish()
     }

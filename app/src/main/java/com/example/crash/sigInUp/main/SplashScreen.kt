@@ -54,7 +54,7 @@ class SplashScreen : AppCompatActivity() {
                 if(snapshot.child(id).value!=null) {
                     val login=snapshot.child(id).child("login").value  as String
                     val rating=snapshot.child(id).child("rating").value  as Long
-                    val user= User(login,rating.toInt())
+                    val user= User(login,rating.toInt(),id)
                     goPersonalAcoount(user)
                 }
             }

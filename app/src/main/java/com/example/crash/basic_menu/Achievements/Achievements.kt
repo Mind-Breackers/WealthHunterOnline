@@ -1,5 +1,6 @@
 package com.example.crash.basic_menu.Achievements
 
+import android.content.Intent
 import android.media.AudioManager
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +14,7 @@ import androidx.lifecycle.LifecycleOwner
 import com.example.crash.R
 import com.example.crash.basic_menu.DataPlayMenu
 import com.example.crash.databinding.FragmentAchievementsBinding
+import com.example.crash.sigInUp.main.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -34,7 +36,14 @@ class Achievements : Fragment(), SeekBar.OnSeekBarChangeListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
         binding = FragmentAchievementsBinding.inflate(inflater)
-        binding.login.text=dataPlayMenu.nameP.value
+        if(dataPlayMenu.nameP.value!=null) {
+            binding.login.text = dataPlayMenu.nameP.value!!.login
+            binding.raiting.text = dataPlayMenu.nameP.value!!.rating.toString()
+        }
+        if(dataPlayMenu.nameGuest.value!=null) {
+            binding.login1.text = dataPlayMenu.nameGuest.value!!.login
+            binding.raiting1.text = dataPlayMenu.nameGuest.value!!.rating.toString()
+        }
         val currentVolume: Int? =  dataPlayMenu.managerSound.value?.getStreamVolume(AudioManager.STREAM_MUSIC)
         if (currentVolume != null) {
             binding.seekBar.progress=(currentVolume.toDouble()/ dataPlayMenu.managerSound.value?.getStreamMaxVolume(AudioManager.STREAM_MUSIC)!!.toDouble()*binding.seekBar.max.toDouble()).toInt()
@@ -54,22 +63,32 @@ class Achievements : Fragment(), SeekBar.OnSeekBarChangeListener {
             dataPlayMenu.activeMenu.value=false
         }
 
-        dataPlayMenu.SeekBar.observe(activity as LifecycleOwner,{
-            when(it){
-                1->{
-                    binding.seekBar.progress = if (binding.seekBar.progress + 1 > binding.seekBar.max) binding.seekBar.max else binding.seekBar.getProgress() + 1
+        dataPlayMenu.SeekBar.observe(activity as LifecycleOwner) {
+            when (it) {
+                1 -> {
+                    binding.seekBar.progress =
+                        if (binding.seekBar.progress + 1 > binding.seekBar.max) binding.seekBar.max else binding.seekBar.getProgress() + 1
                 }
-                -1->{
-                    binding.seekBar.progress = if (binding.seekBar.progress - 1 < 0) 0 else binding.seekBar.progress - 1
+                -1 -> {
+                    binding.seekBar.progress =
+                        if (binding.seekBar.progress - 1 < 0) 0 else binding.seekBar.progress - 1
                 }
-                0->{
-                    binding.seekBar.progress=0
+                0 -> {
+                    binding.seekBar.progress = 0
                 }
             }
-        })
+        }
 
 
         binding.seekBar.setOnSeekBarChangeListener(this)
+
+        binding.btnGuest.setOnClickListener {
+            val intent=Intent(activity,MainActivity::class.java)
+            intent.putExtra("Guest",true)
+            intent.putExtra("MainUser",dataPlayMenu.nameP.value!!)
+            startActivity(intent)
+            dataPlayMenu.activeMenu.value=false
+        }
     }
 
 
@@ -93,7 +112,7 @@ class Achievements : Fragment(), SeekBar.OnSeekBarChangeListener {
 
         val maxVolume: Int? =  dataPlayMenu.managerSound.value?.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
         val percent: Double = (p1.toDouble())/(100.0)
-        val seventyVolume = (maxVolume!! * percent).toInt()
+        val seventyVolume = (maxVolume!! * percent).toInt() ?: 0
         dataPlayMenu.managerSound.value?.setStreamVolume(AudioManager.STREAM_MUSIC, seventyVolume, AudioManager.FLAG_SHOW_UI)
         upgradeImgSound(p1)
     }

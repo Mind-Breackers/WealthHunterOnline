@@ -3,16 +3,18 @@ package com.example.crash.sigInUp.Server
 import android.os.Parcel
 import android.os.Parcelable
 
-data class User( val login: String?, var rating:Int=0):Parcelable{
+data class User(val login: String?, var rating:Int=0, val uid:String?):Parcelable{
     constructor(parcel: Parcel) : this(
         parcel.readString(),
-        parcel.readInt()
+        parcel.readInt(),
+        parcel.readString()
     ) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(login)
         parcel.writeInt(rating)
+        parcel.writeString(uid)
     }
 
     override fun describeContents(): Int {
