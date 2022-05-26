@@ -2,26 +2,22 @@ package com.example.crash.games.Game_Play
 
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import com.example.crash.R
 import com.example.crash.basic_menu.DataPlayMenu
-import com.example.crash.basic_menu.PersonalAccount
 import com.example.crash.databinding.Games2Binding
 import com.example.crash.games.ClassForGame.*
 import com.example.crash.games.Game_Play.Baggage.BaggageFragment
 import com.example.crash.sigInUp.Server.User
-import com.example.crash.sigInUp.main.SplashScreen
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
@@ -138,17 +134,23 @@ class Games : AppCompatActivity() {
 
 
 
-            SkillsTree(bindingclass.rlGames,bindingclass.tree,game,game.field1Centerheight)
-            SkillsTree(bindingclass.rlGames,bindingclass.treeEnemy,game,game.field2Centerheight)
+            val tree =SkillsTree(bindingclass.rlGames,bindingclass.tree,game,game.field1Centerheight)
+            val treeEnemy =SkillsTree(bindingclass.rlGames,bindingclass.treeEnemy,game,game.field2Centerheight)
 
 
             //Туман
-            bindingclass.smoke.layoutParams=params2
-            val tuman=SkillsTuman(bindingclass.tuman,game,bindingclass.smoke)
+            val tuman=SkillsTuman(bindingclass.tuman,game,game.enemyField,false)
             game.blocksPool.tumanRerollOut.observe(this) {
                 tuman.flagSkiils = true
                 game.blocksPool.tumanRerollIn = true
-                bindingclass.smoke.visibility = View.INVISIBLE
+                game.enemyField.visible(true)
+            }
+
+            val tumanenemy=SkillsTuman(bindingclass.tumanenemy,game,game.playField,true)
+            game.blocksPool.tumanRerollOutenemy.observe(this) {
+                tumanenemy.flagSkiils = true
+                game.blocksPool.tumanRerollInenemy = true
+                game.playField.visible(true)
             }
             ///-----------------------------------
 
@@ -267,9 +269,86 @@ class Games : AppCompatActivity() {
 
             game.winAction.observe(this){
                 if(it){
-                    plusRaiting(userbottom)
+                    bindingclass.winLog.text=userbottom.login
+                    bindingclass.winSplash.visibility=View.VISIBLE
+                    bindingclass.btnGame.setOnClickListener {
+                        plusRaiting(userbottom)
+                    }
                 }else{
-                    plusRaiting(userTop)
+                    bindingclass.winLog.text=userTop.login
+                    bindingclass.winSplash.visibility=View.VISIBLE
+                    bindingclass.btnGame.setOnClickListener {
+                        plusRaiting(userTop)
+                    }
+                }
+            }
+
+            game.musorkaSkiils.observe(this){
+                when(it){
+                    Block.Type.EARTH->{
+                        tree.blockForactive++
+                        if(tree.blockForactive==2) {
+                            bindingclass.tree.clearColorFilter()
+                            bindingclass.tree.isEnabled=true
+                        }
+                    }
+                    Block.Type.FIRE->{
+                        fire.blockForactive++
+                        if(fire.blockForactive==2) {
+                            bindingclass.fire.clearColorFilter()
+                            bindingclass.fire.isEnabled=true
+                        }
+                    }
+                    Block.Type.AIR->{
+                        tuman.blockForactive++
+                        if(tuman.blockForactive==2){
+                            bindingclass.tuman.clearColorFilter()
+                            bindingclass.tuman.isEnabled=true
+                        }
+                    }
+                    Block.Type.WATER->{
+
+                    }
+                    else->{
+
+                    }
+                }
+            }
+            bindingclass.tuman.isEnabled=false
+            bindingclass.fire.isEnabled=false
+            bindingclass.tree.isEnabled=false
+            bindingclass.tumanenemy.isEnabled=false
+            bindingclass.fireEnemy.isEnabled=false
+            bindingclass.treeEnemy.isEnabled=false
+            game.musorkaSkiilsenemy.observe(this){
+                when(it){
+                    Block.Type.EARTH->{
+                        treeEnemy.blockForactive++
+                        if(treeEnemy.blockForactive==2) {
+                            bindingclass.treeEnemy.clearColorFilter()
+                            bindingclass.treeEnemy.isEnabled=true
+                        }
+                    }
+                    Block.Type.FIRE->{
+                        fire2.blockForactive++
+                        if(fire2.blockForactive==2) {
+                            bindingclass.fireEnemy.clearColorFilter()
+                            bindingclass.fireEnemy.isEnabled=true
+                        }
+                    }
+                    Block.Type.AIR->{
+                        tumanenemy.blockForactive++
+                        if(tumanenemy.blockForactive==2){
+                            bindingclass.tumanenemy.clearColorFilter()
+                            bindingclass.tumanenemy.isEnabled=true
+                        }
+                    }
+                    Block.Type.WATER->{
+
+                    }
+                    else->{
+
+                    }
                 }
             }
         }
@@ -318,12 +397,9 @@ class Games : AppCompatActivity() {
         if(user.uid!=null ) {
             ref.child(user.uid!!).setValue(user).addOnCompleteListener {
                 if (it.isSuccessful) {
-                    finish()
                 }
             }
         }else{
-
-            finish()
         }
     }
 }

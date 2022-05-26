@@ -1,6 +1,7 @@
 package com.example.crash.games.ClassForGame
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
@@ -9,7 +10,7 @@ import android.widget.RelativeLayout
 @SuppressLint("ClickableViewAccessibility")
 class SkillsFire(fire: ImageView, deleteRelative: RelativeLayout, game: GameClass,topOrBottom:Boolean,displayheight:Int,displaywidth:Int) {
     var action=true
-
+    var blockForactive=0
     init {
         if (topOrBottom) {
             deleteRelative.setOnTouchListener { view, event ->
@@ -42,8 +43,14 @@ class SkillsFire(fire: ImageView, deleteRelative: RelativeLayout, game: GameClas
                 true
             }
         }
+       fire.setColorFilter(Color.argb(80, 0, 0, 0))
         fire.setOnClickListener {
-            deleteRelative.visibility=View.VISIBLE
+            if(blockForactive==2) {
+                it.isEnabled=false
+                fire.setColorFilter(Color.argb(80, 0, 0, 0))
+                blockForactive=0
+                deleteRelative.visibility = View.VISIBLE
+            }
         }
 
     }

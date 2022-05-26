@@ -17,7 +17,10 @@ class Pool(parent: RelativeLayout, blockList: ArrayList<Block>, posX: Int, posY:
         size
     ) {
 
-    init {
+var tumanCount=0
+var tumanCountenemy=0
+
+    init{
         bg.setBackgroundResource(R.drawable.pool_rl)
         bg.setOnTouchListener { v, event ->
             if (event.action == MotionEvent.ACTION_DOWN) {
@@ -35,6 +38,20 @@ class Pool(parent: RelativeLayout, blockList: ArrayList<Block>, posX: Int, posY:
                     }
                     0 -> {
                         update()
+                        if(!tumanRerollIn){
+                            tumanCount++
+                            if(tumanCount==4) {
+                                tumanCount=0
+                                tumanRerollOut.value = true
+                            }
+                        }
+                        if(!tumanRerollInenemy){
+                            tumanCountenemy++
+                            if(tumanCountenemy==4) {
+                                tumanCountenemy=0
+                                tumanRerollOutenemy.value = true
+                            }
+                        }
                         firstMove = false
                     }
                 }

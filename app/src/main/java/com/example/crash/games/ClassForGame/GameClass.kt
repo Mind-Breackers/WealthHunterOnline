@@ -3,6 +3,7 @@ package com.example.crash.games.ClassForGame
 import android.annotation.SuppressLint
 import android.util.Log
 import android.view.MotionEvent
+import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.RelativeLayout
@@ -39,6 +40,12 @@ import com.example.crash.sigInUp.Server.User
 
     val winAction: MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>()
+    }
+    val musorkaSkiilsenemy: MutableLiveData<Block.Type> by lazy {
+        MutableLiveData<Block.Type>()
+    }
+    val musorkaSkiils: MutableLiveData<Block.Type> by lazy {
+        MutableLiveData<Block.Type>()
     }
 
     init {
@@ -151,12 +158,14 @@ import com.example.crash.sigInUp.Server.User
                                     if (capturedBlock!!.cx in 0..musorka.marginLeft + musorka.width
                                         && capturedBlock!!.cy in musorka.marginTop - blocksPool.cellSize..musorka.marginTop + musorka.height
                                     ) {
+                                        musorkaSkiils.value=capturedBlock?.type
                                         capturedBlock?.destroy(blocks)
                                         capturedBlock = null
                                     } else {
                                         if (capturedBlock!!.cx in 0..musorkaEnemy.marginLeft + musorkaEnemy.width
                                             && capturedBlock!!.cy in musorkaEnemy.marginTop - blocksPool.cellSize..musorkaEnemy.marginTop + musorkaEnemy.height
                                         ) {
+                                            musorkaSkiilsenemy.value= capturedBlock?.type
                                             capturedBlock?.destroy(blocks)
                                             capturedBlock = null
                                         } else {
@@ -171,9 +180,19 @@ import com.example.crash.sigInUp.Server.User
                                             }
                                             if (playField.checkWin()) {
                                                 userbottom.rating+=10
+                                                blocks.forEach {
+                                                    it.cells.forEach {
+                                                        it.visibility= View.INVISIBLE
+                                                    }
+                                                }
                                                 winAction.value=true
                                             }
                                             if (enemyField.checkWin()) {
+                                                blocks.forEach {
+                                                    it.cells.forEach {
+                                                        it.visibility= View.INVISIBLE
+                                                    }
+                                                }
                                                 userTop.rating+=10
                                                 winAction.value=false
                                             }

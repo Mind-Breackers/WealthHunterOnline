@@ -1,6 +1,7 @@
 package com.example.crash.games.ClassForGame
 
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import com.example.crash.R
@@ -197,6 +198,18 @@ open class Field(
     fun checkWin():Boolean{
         fulldetective = detective_coordinats.size==coordinats.size
         return fulldetective
+    }
+
+    fun visible(flag:Boolean){
+        if (flag){
+            this.cells.forEach {
+                it.visibility= View.VISIBLE
+            }
+        }else{
+            this.cells.forEach {
+                it.visibility= View.INVISIBLE
+            }
+        }
     }
 
 }

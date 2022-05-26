@@ -22,6 +22,10 @@ abstract class PoolAbstract(protected val parent: RelativeLayout,
         MutableLiveData<Boolean>()
     }
     var tumanRerollIn=false
+    var tumanRerollInenemy=false
+    val tumanRerollOutenemy: MutableLiveData<Boolean> by lazy {
+        MutableLiveData<Boolean>()
+    }
     var waterRerollIn=false
     val waterRerollOut: MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>()
