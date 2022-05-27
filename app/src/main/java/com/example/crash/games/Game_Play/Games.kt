@@ -135,7 +135,7 @@ class Games : AppCompatActivity() {
 
 
             val tree =SkillsTree(bindingclass.rlGames,bindingclass.tree,game,game.field1Centerheight)
-            val treeEnemy =SkillsTree(bindingclass.rlGames,bindingclass.treeEnemy,game,game.field2Centerheight)
+            val treeEnemy =SkillsTree(bindingclass.rlGames,bindingclass.treeEnemy,game,game.field2Centerheight-50)
 
 
             //Туман
