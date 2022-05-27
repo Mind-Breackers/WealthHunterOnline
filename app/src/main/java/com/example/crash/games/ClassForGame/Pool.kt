@@ -1,6 +1,7 @@
 package com.example.crash.games.ClassForGame
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
@@ -19,6 +20,8 @@ class Pool(parent: RelativeLayout, blockList: ArrayList<Block>, posX: Int, posY:
 
 var tumanCount=0
 var tumanCountenemy=0
+    var bannerTop: View = View(parent.context)
+    var bannerBot: View = View(parent.context)
 
     init{
         bg.setBackgroundResource(R.drawable.pool_rl)
@@ -58,9 +61,23 @@ var tumanCountenemy=0
                 if (!firstMove) {
                     actionPool.value = action
                     action--
+                    if (action == -1) action = 2
                     firstMove = true
                 } else firstMove = false
 
+                if (action == 0) {
+                    bannerTop.setBackgroundColor(
+                        Color.argb(
+                        if (iceTarget > 0) 255 else 0, 86,49,32))
+                    bannerBot.setBackgroundColor(Color.argb(0, 86,49,32))
+                } else {
+                    bannerTop.setBackgroundColor(
+                        Color.argb(
+                        if (moveOfBottom == firstMove) 255 else 0,86,49,32))
+                    bannerBot.setBackgroundColor(
+                        Color.argb(
+                        if (!moveOfBottom == firstMove) 255 else 0,86,49,32))
+                }
             }
             true
         }
@@ -69,6 +86,18 @@ var tumanCountenemy=0
         params.leftMargin = posX
         params.topMargin = posY
         parent.addView(bg, params)
+
+        bannerTop.setBackgroundColor(Color.argb(255, 86,49,32))
+
+        params = RelativeLayout.LayoutParams(size, colW - 2)
+        params.leftMargin = posX
+        params.topMargin = posY
+        parent.addView(bannerTop, params)
+        params = RelativeLayout.LayoutParams(size, colW)
+        params.leftMargin = posX
+        params.topMargin = posY + colW
+        parent.addView(bannerBot, params)
+
 
         update()
     }

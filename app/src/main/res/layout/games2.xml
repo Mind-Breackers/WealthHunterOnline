@@ -185,7 +185,6 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginBottom="20dp"
-                            android:tint="#0D000000"
                             app:srcCompat="@drawable/ic_ogon_vektor" />
 
                     </LinearLayout>

@@ -30,6 +30,7 @@ abstract class PoolAbstract(protected val parent: RelativeLayout,
     val waterRerollOut: MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>()
     }
+    var iceTarget = 0
     var rerollIndex=0
     var firstMove = true
     var moveOfBottom = false
@@ -37,8 +38,8 @@ abstract class PoolAbstract(protected val parent: RelativeLayout,
     protected var bg: View = View(parent.context)
 
     open fun update() {
+        if (iceTarget > 0) iceTarget--
         moveOfBottom = !moveOfBottom
-        action = 3
         for (i in blocks.indices) if (blocks[i] != null) blocks[i]?.destroy(blockList)
         for (i in 0..5) {
             val bl = Block(parent, posX, posY, cellSize)

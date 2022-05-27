@@ -307,7 +307,11 @@ class Games : AppCompatActivity() {
                         }
                     }
                     Block.Type.WATER->{
-
+                        water.blockForactive++
+                        if(water.blockForactive==2){
+                            bindingclass.water.clearColorFilter()
+                            bindingclass.water.isEnabled=true
+                        }
                     }
                     else->{
 
